@@ -2,6 +2,7 @@ package com.uplus.ojorise.config;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springdoc.core.models.GroupedOpenApi;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -57,18 +58,8 @@ public class SwaggerConfiguration {
         return new OpenAPI().components(new Components()).info(info);
     }
 
-//    @Bean
-//    public GroupedOpenApi memberApi() {
-//        return GroupedOpenApi.builder().group("eureka-member").pathsToMatch("/member/**").build();
-//    }
-//
-//    @Bean
-//    public GroupedOpenApi bookApi() {
-//        return GroupedOpenApi.builder().group("eureka-book").pathsToMatch("/book/**").build();
-//    }
-//    @Bean
-//    public GroupedOpenApi testApi() {
-//        return GroupedOpenApi.builder().group("eureka-test").pathsToMatch("/test/**").build();
-//    }
-
+    @Bean
+    public GroupedOpenApi chatApi() {
+        return GroupedOpenApi.builder().group("chat-gpt").pathsToMatch("/api/v1/chat-gpt/**").build();
+    }
 }

@@ -24,6 +24,7 @@ repositories {
 }
 
 dependencies {
+    implementation("io.github.flashvayne:chatgpt-spring-boot-starter:1.0.5")
     implementation("org.springdoc:springdoc-openapi-starter-webmvc-ui:2.1.0")
     implementation("org.springframework.boot:spring-boot-starter-web")
     implementation("org.mybatis.spring.boot:mybatis-spring-boot-starter:3.0.4")
