@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.uplus.ojorise.mapper.UserMapper">
+
+    <select id="findByKakaoId" resultType="com.uplus.ojorise.domain.User">
+        SELECT * FROM users WHERE kakao_id = #{kakaoId}
+    </select>
+
+    <insert id="insertUser" parameterType="com.uplus.ojorise.domain.User">
+        INSERT INTO users (kakao_id) VALUES (#{kakaoId})
+    </insert>
+
+    <delete id="deleteByUserId">
+        DELETE FROM users WHERE id = #{userId}
+    </delete>
+
+</mapper>
