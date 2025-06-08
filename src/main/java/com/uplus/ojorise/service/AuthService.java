@@ -28,11 +28,14 @@ public class AuthService {
 
         // DB 저장
         String kakaoId = userInfo.get("id").toString();
+        String nickname = ((Map<String, Object>) ((Map<String, Object>) userInfo.get("kakao_account")).get("profile")).get("nickname").toString();
         User user = userMapper.findByKakaoId(kakaoId);
         if(user == null){
             //join
             user = User.builder()
                     .kakaoId(kakaoId)
+                    .nickname(nickname)
+                    .isSurveyed(false)
                     .build();
             userMapper.insertUser(user);
             user = userMapper.findByKakaoId(kakaoId); //Id 갱신

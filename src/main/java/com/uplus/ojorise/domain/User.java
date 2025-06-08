@@ -10,4 +10,6 @@ import lombok.*;
 public class User {
     private Long id;
     private String kakaoId;
+    private String nickname;
+    private boolean isSurveyed;
 }
