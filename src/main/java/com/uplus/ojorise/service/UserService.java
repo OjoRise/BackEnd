@@ -1,5 +1,6 @@
 package com.uplus.ojorise.service;
 
+import com.uplus.ojorise.domain.User;
 import com.uplus.ojorise.dto.KakaoTokenResponse;
 import com.uplus.ojorise.mapper.TokenMapper;
 import com.uplus.ojorise.mapper.UserMapper;
@@ -27,9 +28,14 @@ public class UserService {
             try {
                 KakaoTokenResponse newTokens = kakaoApiService.refreshAccessToken(kakaoRefreshToken);
                 String kakaoAccessToken = newTokens.getAccessToken();
-                kakaoApiService.kakaoWithdraw(kakaoAccessToken);
+                if(kakaoAccessToken != null){
+                    kakaoApiService.kakaoWithdraw(kakaoAccessToken);
+                } else{
+                    kakaoApiService.kakaoWithdraw(accessToken);
+                }
                 kakaoUnlinkResult = "카카오 연결 해제 완료";
             } catch (Exception e) {
+                e.printStackTrace();
                 kakaoUnlinkResult = "카카오 연결 해제 실패";
             }
         } else {
@@ -38,7 +44,10 @@ public class UserService {
         
         // DB 삭제
         tokenMapper.deleteByUserId(userId);
-        userMapper.deleteByUserId(userId);
+        // DB 변경
+        userMapper.markWithdraw(userId);
+        User user = userMapper.findByUserId(userId);
+        user.setIsWithdraw(true);
 
         return kakaoUnlinkResult;
     }
