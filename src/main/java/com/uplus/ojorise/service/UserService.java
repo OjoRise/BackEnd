@@ -26,10 +26,17 @@ public class UserService {
         if (kakaoRefreshToken != null) {
             try {
                 KakaoTokenResponse newTokens = kakaoApiService.refreshAccessToken(kakaoRefreshToken);
+                System.out.println("카카오 재발급된 accessToken: " + newTokens.getAccessToken());
+                System.out.println("카카오 재발급된 refreshToken: " + newTokens.getRefreshToken());
                 String kakaoAccessToken = newTokens.getAccessToken();
-                kakaoApiService.kakaoWithdraw(kakaoAccessToken);
+                if(kakaoAccessToken != null){
+                    kakaoApiService.kakaoWithdraw(kakaoAccessToken);
+                } else{
+                    kakaoApiService.kakaoWithdraw(accessToken);
+                }
                 kakaoUnlinkResult = "카카오 연결 해제 완료";
             } catch (Exception e) {
+                e.printStackTrace();
                 kakaoUnlinkResult = "카카오 연결 해제 실패";
             }
         } else {
