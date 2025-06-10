@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.uplus.ojorise.mapper.UserMapper">
+
+    <select id="findByKakaoId" resultType="com.uplus.ojorise.domain.User">
+        SELECT * FROM user WHERE kakao_id = #{kakaoId}
+    </select>
+
+    <select id="findByUserId" resultType="com.uplus.ojorise.domain.User">
+        SELECT * FROM user WHERE id = #{userId}
+    </select>
+
+    <insert id="insertUser" parameterType="com.uplus.ojorise.domain.User">
+        INSERT INTO user (kakao_id, nickname, is_surveyed, is_withdraw)
+        VALUES (#{kakaoId}, #{nickname}, #{isSurveyed}, #{isWithdraw})
+    </insert>
+
+    <delete id="deleteByUserId">
+        DELETE FROM user WHERE id = #{userId}
+    </delete>
+
+    <update id="markSurvey">
+        UPDATE user SET is_surveyed = true WHERE id = #{userId}
+    </update>
+
+    <update id="markWithdraw">
+        UPDATE user SET is_withdraw = true WHERE id = #{userId}
+    </update>
+
+    <update id="cancelWithdraw">
+        UPDATE user SET is_withdraw = false WHERE id = #{userId}
+    </update>
+
+</mapper>
