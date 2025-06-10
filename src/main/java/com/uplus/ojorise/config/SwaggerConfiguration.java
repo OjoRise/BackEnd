@@ -2,18 +2,20 @@ package com.uplus.ojorise.config;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springdoc.core.models.GroupedOpenApi;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 //import io.jsonwebtoken.lang.Arrays;
 import io.swagger.v3.oas.annotations.enums.SecuritySchemeIn;
 import io.swagger.v3.oas.annotations.enums.SecuritySchemeType;
-import io.swagger.v3.oas.annotations.security.SecurityScheme;
 import io.swagger.v3.oas.annotations.security.SecuritySchemes;
 //import io.swagger.v3.oas.annotations.info.Info;
-import io.swagger.v3.oas.models.Components;
 import io.swagger.v3.oas.models.OpenAPI;
 import io.swagger.v3.oas.models.info.Info;
+import io.swagger.v3.oas.models.Components;
+import io.swagger.v3.oas.models.security.SecurityScheme;
+import io.swagger.v3.oas.models.security.SecurityRequirement;
 
 // Swagger-UI 확인
 // http://localhost:8080/ojoRise/swagger-ui/swagger-ui/index.html
@@ -49,26 +51,27 @@ public class SwaggerConfiguration {
     @Bean
     public OpenAPI openOjoRiseAPI() {
         logger.debug("openOjoRiseAPI.............");
+
         Info info = new Info().title("OjoRise SpringTest API 명세서").description(
 //                        "<h3>SpringTest API Reference for Developers</h3>Swagger를 이용한 SpringTest API<br><img src=\"/eureka/img/eureka_logo.png\" width=\"50\">")
                         "<h3>SpringTest API Reference for Developers</h3>Swagger를 이용한 SpringTest API")
                 .version("v1");
 
-        return new OpenAPI().components(new Components()).info(info);
+        SecurityScheme bearerAuth = new SecurityScheme()
+                .type(SecurityScheme.Type.HTTP)
+                .scheme("bearer")
+                .bearerFormat("JWT")
+                .in(SecurityScheme.In.HEADER)
+                .name("Authorization");
+
+        return new OpenAPI()
+                .components(new Components().addSecuritySchemes("BearerAuth", bearerAuth))
+                .addSecurityItem(new SecurityRequirement().addList("BearerAuth"))
+                .info(info);
     }
 
-//    @Bean
-//    public GroupedOpenApi memberApi() {
-//        return GroupedOpenApi.builder().group("eureka-member").pathsToMatch("/member/**").build();
-//    }
-//
-//    @Bean
-//    public GroupedOpenApi bookApi() {
-//        return GroupedOpenApi.builder().group("eureka-book").pathsToMatch("/book/**").build();
-//    }
-//    @Bean
-//    public GroupedOpenApi testApi() {
-//        return GroupedOpenApi.builder().group("eureka-test").pathsToMatch("/test/**").build();
-//    }
-
+    @Bean
+    public GroupedOpenApi chatApi() {
+        return GroupedOpenApi.builder().group("chat-gpt").pathsToMatch("/api/v1/chat-gpt/**").build();
+    }
 }
