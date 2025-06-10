@@ -72,6 +72,6 @@ public class SwaggerConfiguration {
 
     @Bean
     public GroupedOpenApi chatApi() {
-        return GroupedOpenApi.builder().group("chat-gpt").pathsToMatch("/api/v1/chat-gpt/**").build();
+        return GroupedOpenApi.builder().group("login").pathsToMatch("/auth/**").build();
     }
 }
