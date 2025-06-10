@@ -7,9 +7,6 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 //import io.jsonwebtoken.lang.Arrays;
-import io.swagger.v3.oas.annotations.enums.SecuritySchemeIn;
-import io.swagger.v3.oas.annotations.enums.SecuritySchemeType;
-import io.swagger.v3.oas.annotations.security.SecuritySchemes;
 //import io.swagger.v3.oas.annotations.info.Info;
 import io.swagger.v3.oas.models.OpenAPI;
 import io.swagger.v3.oas.models.info.Info;
@@ -53,7 +50,7 @@ public class SwaggerConfiguration {
         logger.debug("openOjoRiseAPI.............");
 
         Info info = new Info().title("OjoRise SpringTest API 명세서").description(
-//                        "<h3>SpringTest API Reference for Developers</h3>Swagger를 이용한 SpringTest API<br><img src=\"/eureka/img/eureka_logo.png\" width=\"50\">")
+//                      "<h3>SpringTest API Reference for Developers</h3>Swagger를 이용한 SpringTest API<br><img src=\"/eureka/img/eureka_logo.png\" width=\"50\">")
                         "<h3>SpringTest API Reference for Developers</h3>Swagger를 이용한 SpringTest API")
                 .version("v1");
 
@@ -71,7 +68,7 @@ public class SwaggerConfiguration {
     }
 
     @Bean
-    public GroupedOpenApi chatApi() {
-        return GroupedOpenApi.builder().group("chat-gpt").pathsToMatch("/api/v1/chat-gpt/**").build();
+    public GroupedOpenApi loginApi() {
+        return GroupedOpenApi.builder().group("login").pathsToMatch("/auth/**").build();
     }
 }
