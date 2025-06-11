@@ -20,6 +20,7 @@ enum TelecomProvider {
 @AllArgsConstructor
 @Builder
 public class Plan {
+    private Long planId;
     private String name;
     private int baseDataGb;
     private int dailyDataGb;
