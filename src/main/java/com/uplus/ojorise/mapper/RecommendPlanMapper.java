@@ -5,6 +5,7 @@ import com.uplus.ojorise.dto.RecommendPlan;
 import org.apache.ibatis.annotations.*;
 
 import java.util.List;
+
 @Mapper
 public interface RecommendPlanMapper {
     @Select("""
@@ -15,6 +16,18 @@ public interface RecommendPlanMapper {
 """)
     List<Plan> findByUserId(int id);
 
+    @Insert("""
+    INSERT INTO recommendplan (plan_id, id)
+    VALUES (#{planId}, #{id})
+    """)
+    void insert(RecommendPlan recommendPlan);
+
     @Delete("DELETE FROM recommendplan WHERE id = #{id} AND plan_id = #{planId}")
     void delete(@Param("id") int id, @Param("planId") int planId);
+
+    @Select("""
+    SELECT COUNT(*) FROM recommendplan
+    WHERE id = #{id} AND plan_id = #{planId}
+    """)
+    boolean exists(@Param("id") int id, @Param("planId") int planId);
 }
