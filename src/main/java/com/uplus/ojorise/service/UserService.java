@@ -51,4 +51,8 @@ public class UserService {
 
         return kakaoUnlinkResult;
     }
+
+    public void completeSurvey(Long userId) {
+        userMapper.markSurvey(userId);
+    }
 }

@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.uplus.ojorise.mapper.StatusMapper">
+
+    <resultMap id="PlanResultMap" type="com.uplus.ojorise.domain.Plan">
+        <result property="name" column="name" />
+        <result property="baseDataGb" column="base_data_gb" />
+        <result property="dailyDataGb" column="daily_data_gb" />
+        <result property="dailyDataMb" column="daily_data_mb" />
+        <result property="sharingDataGb" column="sharing_data_gb" />
+        <result property="sharingDataMb" column="sharing_data_mb" />
+        <result property="monthlyFee" column="monthly_fee" />
+        <result property="voiceCallPrice" column="voice_call_price" />
+        <result property="smsIncluded" column="sms_included" />
+        <result property="throttleSpeedKbps" column="throttle_speed_kbps" />
+        <result property="eligibility" column="eligibility" />
+        <result property="mobileType" column="mobile_type" />
+        <result property="dataType" column="data_type" />
+        <result property="planUrl" column="plan_url" />
+        <result property="telecomProvider" column="telecom_provider" />
+    </resultMap>
+
+    <select id="findPlanByPropsWithName" resultMap="PlanResultMap">
+        SELECT * FROM plan
+        WHERE eligibility IN
+        <foreach item="eligibility" collection="eligibilityList" open="(" separator="," close=")">
+            #{eligibility}
+        </foreach>
+        AND telecom_provider IN
+        <foreach item="telecomProvider" collection="telecomProviderList" open="(" separator="," close=")">
+            #{telecomProvider}
+        </foreach>
+        AND name = #{name}
+    </select>
+
+    <select id="findPlanByPropsWithoutName" resultMap="PlanResultMap">
+        SELECT * FROM plan
+        WHERE eligibility IN
+        <foreach item="eligibility" collection="eligibilityList" open="(" separator="," close=")">
+            #{eligibility}
+        </foreach>
+        AND telecom_provider IN
+        <foreach item="telecomProvider" collection="telecomProviderList" open="(" separator="," close=")">
+            #{telecomProvider}
+        </foreach>
+    </select>
+</mapper>

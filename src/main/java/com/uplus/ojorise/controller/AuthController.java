@@ -12,6 +12,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.security.core.Authentication;
+import io.swagger.v3.oas.annotations.Operation;
 
 import java.io.IOException;
 import java.util.Map;
@@ -96,6 +97,20 @@ public class AuthController {
         } catch (Exception e) {
             return ResponseEntity.status(500).body(
                     Map.of("message", "탈퇴 실패", "error", e.getMessage())
+            );
+        }
+    }
+
+    @Operation(summary = "설문 완료 처리", description = "user 테이블의 is_surveyed 값을 true로 업데이트")
+    @PatchMapping("/survey/complete")
+    public ResponseEntity<?> completeSurvey(Authentication authentication) {
+        try {
+            Long userId = (Long) authentication.getPrincipal();
+            userService.completeSurvey(userId);
+            return ResponseEntity.ok(Map.of("message", "설문조사 완료 처리됨"));
+        } catch (Exception e) {
+            return ResponseEntity.status(500).body(
+                    Map.of("message", "설문조사 처리 실패", "error", e.getMessage())
             );
         }
     }
