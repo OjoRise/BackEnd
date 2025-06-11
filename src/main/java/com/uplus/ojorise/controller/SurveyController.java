@@ -1,5 +1,6 @@
 package com.uplus.ojorise.controller;
 
+import com.uplus.ojorise.domain.Plan;
 import com.uplus.ojorise.domain.Survey;
 import com.uplus.ojorise.dto.SurveyResponse;
 import com.uplus.ojorise.service.SurveyService;
@@ -8,6 +9,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import io.swagger.v3.oas.annotations.Operation;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/survey")
@@ -35,5 +38,12 @@ public class SurveyController {
         } catch (Exception e) {
             return ResponseEntity.status(500).body("설문 저장 실패: " + e.getMessage());
         }
+    }
+
+    @GetMapping
+    @Operation(summary = "통신사 기반 요금제 조회", description = "요청한 통신사에 해당하는 요금제 목록을 반환합니다.")
+    public ResponseEntity<List<Plan>> getPlansByProvider(@RequestParam("telecom_provider") String telecomProvider) {
+        List<Plan> plans = surveyService.getPlansByTelecomProvider(telecomProvider);
+        return ResponseEntity.ok(plans);
     }
 }

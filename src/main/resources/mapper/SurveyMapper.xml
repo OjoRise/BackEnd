@@ -13,4 +13,10 @@
                  )
     </insert>
 
+    <select id="findByTelecomProvider" resultType="com.uplus.ojorise.domain.Plan">
+        SELECT plan_id AS planId, name
+        FROM plan
+        WHERE telecom_provider = #{telecomProvider}
+    </select>
+
 </mapper>
