@@ -34,7 +34,8 @@ public class SecurityConfig {
                                 "/webjars/**",
                                 "/auth/kakao/**",
                                 "/auth/refresh",
-                                "/error"
+                                "/error",
+                                "/plan/**"
                         ).permitAll()
                         .anyRequest().authenticated()
                 )

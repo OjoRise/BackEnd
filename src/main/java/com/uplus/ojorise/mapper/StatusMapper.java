@@ -8,13 +8,9 @@ import java.util.List;
 
 @Mapper
 public interface StatusMapper {
-    List<Plan> findPlanByPropsWithName(
-            @Param("eligibilityList") List<String> eligibilityList,
-            @Param("telecomProviderList") List<String> telecomProviderList,
-            @Param("name") String name
+    List<Plan> findPlanByBirthDate(
+            @Param("eligibilityList") List<String> eligibilityList
     );
-    List<Plan> findPlanByPropsWithoutName(
-            @Param("eligibilityList") List<String> eligibilityList,
-            @Param("telecomProviderList") List<String> telecomProviderList
-    );
+    
+    List<Plan> findAllPlansForLG();
 }
