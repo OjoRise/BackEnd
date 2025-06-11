@@ -1,6 +1,6 @@
 package com.uplus.ojorise.mapper;
 
-import com.uplus.ojorise.dto.Plan;
+import com.uplus.ojorise.domain.Plan;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.*;
 

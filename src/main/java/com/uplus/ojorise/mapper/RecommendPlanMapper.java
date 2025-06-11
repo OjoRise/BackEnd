@@ -1,7 +1,7 @@
 package com.uplus.ojorise.mapper;
 
-import com.uplus.ojorise.dto.Plan;
-import com.uplus.ojorise.dto.RecommendPlan;
+import com.uplus.ojorise.domain.Plan;
+import com.uplus.ojorise.domain.RecommendPlan;
 import org.apache.ibatis.annotations.*;
 
 import java.util.List;

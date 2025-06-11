@@ -1,7 +1,7 @@
 package com.uplus.ojorise.service;
 
-import com.uplus.ojorise.dto.Plan;
-import com.uplus.ojorise.dto.RecommendPlan;
+import com.uplus.ojorise.domain.Plan;
+import com.uplus.ojorise.domain.RecommendPlan;
 import com.uplus.ojorise.mapper.RecommendPlanMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;

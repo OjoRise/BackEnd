@@ -1,9 +1,9 @@
-package com.uplus.ojorise.dto;
+package com.uplus.ojorise.domain;
 
 import lombok.Data;
 
 @Data
-public class DipPlan {
+public class RecommendPlan {
     private int id;
     private int planId;
 }

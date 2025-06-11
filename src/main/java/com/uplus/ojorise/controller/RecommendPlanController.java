@@ -1,7 +1,6 @@
 package com.uplus.ojorise.controller;
 
-import com.uplus.ojorise.dto.Plan;
-import com.uplus.ojorise.dto.RecommendPlan;
+import com.uplus.ojorise.domain.Plan;
 import com.uplus.ojorise.dto.RecommendPlanRequest;
 import com.uplus.ojorise.service.RecommendPlanService;
 import io.swagger.v3.oas.annotations.Operation;
