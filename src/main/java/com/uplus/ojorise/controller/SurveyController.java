@@ -2,6 +2,7 @@ package com.uplus.ojorise.controller;
 
 import com.uplus.ojorise.domain.Plan;
 import com.uplus.ojorise.domain.Survey;
+import com.uplus.ojorise.dto.PlanResponse;
 import com.uplus.ojorise.dto.SurveyResponse;
 import com.uplus.ojorise.service.SurveyService;
 import jakarta.servlet.http.HttpServletRequest;
@@ -42,8 +43,13 @@ public class SurveyController {
 
     @GetMapping
     @Operation(summary = "통신사 기반 요금제 조회", description = "요청한 통신사에 해당하는 요금제 목록을 반환합니다.")
-    public ResponseEntity<List<Plan>> getPlansByProvider(@RequestParam("telecom_provider") String telecomProvider) {
+    public ResponseEntity<List<PlanResponse>> getPlansByProvider(@RequestParam("telecom_provider") String telecomProvider) {
         List<Plan> plans = surveyService.getPlansByTelecomProvider(telecomProvider);
-        return ResponseEntity.ok(plans);
+
+        List<PlanResponse> summaries = plans.stream()
+                .map(p -> new PlanResponse(p.getPlanId(), p.getName()))
+                .toList();
+
+        return ResponseEntity.ok(summaries);
     }
 }
