@@ -7,9 +7,9 @@
 
     <insert id="insertSurvey" parameterType="com.uplus.ojorise.domain.Survey">
         INSERT INTO survey (
-            id, birthdate, telecom_provider, plan_name, contract_term, family_bundle
+            id, birthdate, telecom_provider, plan_name, plan_price, family_bundle, family_num
         ) VALUES (
-                     #{id}, #{birthdate}, #{telecomProvider}, #{planName}, #{contractTerm}, #{familyBundle}
+                     #{id}, #{birthdate}, #{telecomProvider}, #{planName}, #{planPrice}, #{familyBundle}, #{familyNum}
                  )
     </insert>
 

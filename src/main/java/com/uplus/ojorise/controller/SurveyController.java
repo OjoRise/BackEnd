@@ -30,8 +30,9 @@ public class SurveyController {
                     .birthdate(dto.getBirthdate())
                     .telecomProvider(dto.getTelecomProvider())
                     .planName(dto.getPlanName())
-                    .contractTerm(dto.getContractTerm())
+                    .planPrice(dto.getPlanPrice())
                     .familyBundle(dto.getFamilyBundle())
+                    .familyNum(dto.getFamilyNum())
                     .build();
 
             surveyService.saveSurvey(accessToken, survey);
