@@ -11,23 +11,26 @@ public interface RecommendPlanMapper {
     @Select("""
     SELECT p.*
     FROM recommendplan r
-    JOIN plan p ON r.plan_id = p.plan_id
+    JOIN plan p ON r.plan_name = p.name
     WHERE r.id = #{id}
-""")
+    """)
     List<Plan> findByUserId(int id);
 
     @Insert("""
-    INSERT INTO recommendplan (plan_id, id)
-    VALUES (#{planId}, #{id})
+    INSERT INTO recommendplan (plan_name, id)
+    VALUES (#{planName}, #{id})
     """)
     void insert(RecommendPlan recommendPlan);
 
-    @Delete("DELETE FROM recommendplan WHERE id = #{id} AND plan_id = #{planId}")
-    void delete(@Param("id") int id, @Param("planId") int planId);
+    @Delete("""
+    DELETE FROM recommendplan
+    WHERE id = #{id} AND plan_name = #{planName}
+    """)
+    void delete(@Param("id") int id, @Param("planName") String planName);
 
     @Select("""
-    SELECT COUNT(*) FROM recommendplan
-    WHERE id = #{id} AND plan_id = #{planId}
+    SELECT COUNT(*) > 0 FROM recommendplan
+    WHERE id = #{id} AND plan_name = #{planName}
     """)
-    boolean exists(@Param("id") int id, @Param("planId") int planId);
+    boolean exists(@Param("id") int id, @Param("planName") String planName);
 }
