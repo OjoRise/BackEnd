@@ -63,7 +63,7 @@ public class SecurityConfig {
                 "https://yople.vercel.app",
                 "https://backend-ojorise.onrender.com"
         ));
-        config.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "OPTIONS"));
+        config.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "PATCH", "OPTIONS"));
         config.setAllowedHeaders(List.of("*"));
         config.setExposedHeaders(List.of("*"));
         config.setAllowCredentials(true);
