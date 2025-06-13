@@ -1,6 +1,7 @@
 package com.uplus.ojorise.domain;
 
 import lombok.*;
+import java.time.LocalDate;
 
 @Getter
 @Setter
@@ -10,9 +11,10 @@ import lombok.*;
 public class Survey {
     private Long surveyId;
     private Long id;
-    private String birthdate;
+    private LocalDate birthdate;
     private String telecomProvider;
     private String planName;
-    private String contractTerm;
+    private Integer planPrice;
     private String familyBundle;
+    private String familyNum;
 }
