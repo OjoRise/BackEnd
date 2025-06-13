@@ -5,5 +5,5 @@ import java.util.List;
 
 @Data
 public class RecommendPlanRequest {
-    private List<Integer> planIds;
+    private List<String> planNames;
 }

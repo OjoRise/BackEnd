@@ -37,4 +37,7 @@ public interface RecommendPlanMapper {
         WHERE id = #{id} AND plan_id = #{planId}
     """)
     boolean exists(@Param("id") int id, @Param("planId") int planId);
+
+    @Select("SELECT plan_id FROM plan WHERE name = #{name}")
+    Integer findPlanIdByName(@Param("name") String name);
 }

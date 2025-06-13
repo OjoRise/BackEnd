@@ -40,9 +40,12 @@ public class RecommendPlanController {
             summary = "추천 요금제 동기화",
             description = "로그인 후 로컬에 저장된 추천 요금제(planId 리스트)를 DB에 저장합니다. 이미 존재하는 추천은 중복 저장되지 않습니다."
     )
-    public ResponseEntity<String> syncRecommendations(@RequestBody RecommendPlanRequest request, Authentication authentication) {
+    public ResponseEntity<String> syncRecommendations(
+            @RequestBody RecommendPlanRequest request,
+            Authentication authentication) {
+
         Long userId = (Long) authentication.getPrincipal();
-        recommendPlanService.addAllIfNotExists(userId.intValue(), request.getPlanIds());
+        recommendPlanService.addAllIfNotExists(userId.intValue(), request.getPlanNames());
         return ResponseEntity.ok("추천 요금제가 성공적으로 동기화되었습니다.");
     }
 }
