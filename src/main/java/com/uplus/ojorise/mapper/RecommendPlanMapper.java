@@ -8,29 +8,33 @@ import java.util.List;
 
 @Mapper
 public interface RecommendPlanMapper {
+
     @Select("""
-    SELECT p.*
-    FROM recommendplan r
-    JOIN plan p ON r.plan_name = p.name
-    WHERE r.id = #{id}
+        SELECT p.*
+        FROM recommendplan r
+        JOIN plan p ON r.plan_id = p.plan_id
+        WHERE r.id = #{id}
     """)
     List<Plan> findByUserId(int id);
 
+    // 추천 요금제 저장
     @Insert("""
-    INSERT INTO recommendplan (plan_name, id)
-    VALUES (#{planName}, #{id})
+        INSERT INTO recommendplan (plan_id, id)
+        VALUES (#{planId}, #{id})
     """)
     void insert(RecommendPlan recommendPlan);
 
+    // 추천 요금제 삭제
     @Delete("""
-    DELETE FROM recommendplan
-    WHERE id = #{id} AND plan_name = #{planName}
+        DELETE FROM recommendplan
+        WHERE id = #{id} AND plan_id = #{planId}
     """)
-    void delete(@Param("id") int id, @Param("planName") String planName);
+    void delete(@Param("id") int id, @Param("planId") int planId);
 
+    // 추천 요금제 존재 여부 확인
     @Select("""
-    SELECT COUNT(*) > 0 FROM recommendplan
-    WHERE id = #{id} AND plan_name = #{planName}
+        SELECT COUNT(*) > 0 FROM recommendplan
+        WHERE id = #{id} AND plan_id = #{planId}
     """)
-    boolean exists(@Param("id") int id, @Param("planName") String planName);
+    boolean exists(@Param("id") int id, @Param("planId") int planId);
 }

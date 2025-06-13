@@ -18,22 +18,22 @@ public class RecommendPlanService {
         return recommendPlanMapper.findByUserId(id);
     }
 
-    public void delete(int id, String planName) {
-        recommendPlanMapper.delete(id, planName);
+    public void delete(int id, int planId) {
+        recommendPlanMapper.delete(id, planId);
     }
 
-    public void addIfNotExists(int id, String planName) {
-        if (!recommendPlanMapper.exists(id, planName)) {
+    public void addIfNotExists(int id, int planId) {
+        if (!recommendPlanMapper.exists(id, planId)) {
             RecommendPlan recommend = new RecommendPlan();
             recommend.setId(id);
-            recommend.setPlanName(planName);
+            recommend.setPlanId(planId);
             recommendPlanMapper.insert(recommend);
         }
     }
 
-    public void addAllIfNotExists(int id, List<String> planNames) {
-        for (String planName : planNames) {
-            addIfNotExists(id, planName);
+    public void addAllIfNotExists(int id, List<Integer> planIds) {
+        for (int planId : planIds) {
+            addIfNotExists(id, planId);
         }
     }
 }

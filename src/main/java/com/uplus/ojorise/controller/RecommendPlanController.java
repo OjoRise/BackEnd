@@ -29,9 +29,9 @@ public class RecommendPlanController {
 
     @DeleteMapping("/{planId}")
     @Operation(summary = "추천 요금제 삭제", description = "사용자에게 추천된 특정 요금제를 삭제합니다.")
-    public ResponseEntity<String> deleteRecommendation(@PathVariable String planName, Authentication authentication) {
+    public ResponseEntity<String> deleteRecommendation(@PathVariable int planId, Authentication authentication) {
         Long userId = (Long) authentication.getPrincipal();
-        recommendPlanService.delete(userId.intValue(), planName);
+        recommendPlanService.delete(userId.intValue(), planId);
         return ResponseEntity.ok("추천 요금제가 성공적으로 삭제되었습니다.");
     }
 
@@ -42,8 +42,7 @@ public class RecommendPlanController {
     )
     public ResponseEntity<String> syncRecommendations(@RequestBody RecommendPlanRequest request, Authentication authentication) {
         Long userId = (Long) authentication.getPrincipal();
-        recommendPlanService.addAllIfNotExists(userId.intValue(), request.getPlanNames());
+        recommendPlanService.addAllIfNotExists(userId.intValue(), request.getPlanIds());
         return ResponseEntity.ok("추천 요금제가 성공적으로 동기화되었습니다.");
     }
 }
-

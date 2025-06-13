@@ -3,11 +3,16 @@ package com.uplus.ojorise.domain;
 import lombok.*;
 
 enum Eligibility {
-    ALL, 청소년, 청년, 시니어
+    ALL, KID, BOY, YOUTH, OLD, SOLDIER, WELFARE
 }
 
-enum DataType {
-    무제한, 제한
+enum MobileType {
+    _5G, LTE;
+
+    @Override
+    public String toString() {
+        return this == _5G ? "5G" : name();
+    }
 }
 
 enum TelecomProvider {
@@ -20,20 +25,19 @@ enum TelecomProvider {
 @AllArgsConstructor
 @Builder
 public class Plan {
-    private Long planId;
+    private Integer planId;
     private String name;
-    private int baseDataGb;
-    private int dailyDataGb;
-    private int dailyDataMb;
-    private int sharingDataGb;
-    private int sharingDataMb;
-    private int monthlyFee;
-    private int voiceCallPrice;
-    private boolean smsIncluded;
-    private int throttleSpeedKbps;
+    private String baseDataGb;
+    private String dailyDataGb;
+    private String sharingDataGb;
+    private Integer monthlyFee;
+    private String voiceCallPrice;
+    private String sms;
+    private Integer throttleSpeedKbps;
     private Eligibility eligibility;
     private String mobileType;
-    private DataType dataType;
+    private Boolean isOnline;
     private String planUrl;
     private TelecomProvider telecomProvider;
+    private String description;
 }
