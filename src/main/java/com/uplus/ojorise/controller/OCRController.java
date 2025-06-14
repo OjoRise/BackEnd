@@ -1,9 +1,7 @@
 package com.uplus.ojorise.controller;
 
 import com.uplus.ojorise.service.GoogleApiService;
-import com.uplus.ojorise.service.KakaoApiService;
 import io.swagger.v3.oas.annotations.Operation;
-import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
