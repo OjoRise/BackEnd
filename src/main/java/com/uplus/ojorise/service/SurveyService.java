@@ -25,4 +25,16 @@ public class SurveyService {
     public List<Plan> getPlansByTelecomProvider(String telecomProvider) {
         return surveyMapper.findByTelecomProvider(telecomProvider);
     }
+
+    public Survey getSurvey(String accessToken) {
+        Long userId = jwtUtil.getUserIdFromToken(accessToken);
+        return surveyMapper.getSurvey(userId);
+    }
+
+    public void updateSurvey(String accessToken, Survey survey) {
+        Long userId = jwtUtil.getUserIdFromToken(accessToken);
+        survey.setId(userId);
+        surveyMapper.updateSurvey(survey);
+    }
+
 }
