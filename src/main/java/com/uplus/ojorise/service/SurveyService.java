@@ -6,7 +6,6 @@ import com.uplus.ojorise.mapper.SurveyMapper;
 import com.uplus.ojorise.util.JwtUtil;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-
 import java.util.List;
 
 @Service
