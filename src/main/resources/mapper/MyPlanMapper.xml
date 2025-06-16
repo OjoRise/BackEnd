@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.uplus.ojorise.mapper.MyPlanMapper">
+    <resultMap id="MyPlanResultMap" type="com.uplus.ojorise.domain.MyPlan">
+        <result property="name" column="name" />
+        <result property="baseDataGb" column="base_data_gb" />
+        <result property="dailyDataGb" column="daily_data_gb" />
+        <result property="sharingDataGb" column="sharing_data_gb" />
+        <result property="monthlyFee" column="monthly_fee" />
+        <result property="voiceCallPrice" column="voice_call_price" />
+        <result property="sms" column="sms" />
+        <result property="throttleSpeedKbps" column="throttle_speed_kbps" />
+        <result property="mobileType" column="mobile_type" />
+    </resultMap>
+
+    <select id="findMyPlanAll" resultMap="MyPlanResultMap">
+        SELECT * from plan
+    </select>
+
+    <select id="findMyPlanByName" resultMap="MyPlanResultMap">
+        SELECT * from plan
+        WHERE name = #{name}
+    </select>
+</mapper>
