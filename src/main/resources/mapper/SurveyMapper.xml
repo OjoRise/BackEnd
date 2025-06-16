@@ -7,9 +7,9 @@
 
     <insert id="insertSurvey" parameterType="com.uplus.ojorise.domain.Survey">
         INSERT INTO survey (
-            id, birthdate, telecom_provider, plan_name, contract_term, family_bundle
+            id, birthdate, telecom_provider, plan_name, plan_price, family_bundle, family_num
         ) VALUES (
-                     #{id}, #{birthdate}, #{telecomProvider}, #{planName}, #{contractTerm}, #{familyBundle}
+                     #{id}, #{birthdate}, #{telecomProvider}, #{planName}, #{planPrice}, #{familyBundle}, #{familyNum}
                  )
     </insert>
 
@@ -19,4 +19,25 @@
         WHERE telecom_provider = #{telecomProvider}
     </select>
 
+    <select id="getSurvey" resultType="com.uplus.ojorise.domain.Survey">
+        SELECT birthdate,
+               telecom_provider AS telecomProvider,
+               plan_name AS planName,
+               plan_price AS planPrice,
+               family_bundle AS familyBundle,
+               family_num AS familyNum
+        FROM survey
+        WHERE id = #{id}
+    </select>
+
+    <update id="updateSurvey" parameterType="com.uplus.ojorise.domain.Survey">
+        UPDATE survey
+        SET birthdate = #{birthdate},
+            telecom_provider = #{telecomProvider},
+            plan_name = #{planName},
+            plan_price = #{planPrice},
+            family_bundle = #{familyBundle},
+            family_num = #{familyNum}
+        WHERE id = #{id}
+    </update>
 </mapper>

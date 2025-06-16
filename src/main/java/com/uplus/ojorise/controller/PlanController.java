@@ -1,10 +1,13 @@
 package com.uplus.ojorise.controller;
 
+import com.uplus.ojorise.client.PythonClient;
 import com.uplus.ojorise.domain.Plan;
 import com.uplus.ojorise.service.PlanService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -18,42 +21,50 @@ import java.util.*;
 public class PlanController {
 
     private final PlanService planService;
+    private final PythonClient pythonClient;
 
     @GetMapping("/plan")
-    public List<Plan> getPlanByProps(
-            @RequestParam(required = false)
-            @DateTimeFormat(pattern = "yyyy-MM-dd") Date birthdate,
-            @RequestParam(required = false) String telecomProvider,
-            @RequestParam(required = false) String name
+    public ResponseEntity<List<Plan>> getPlanByBirthDate(
+            @RequestParam(name = "birthdate", required = false)
+            @DateTimeFormat(pattern = "yyyy-MM-dd") Date birthdate
     ) {
         List<String> eligibilityList = new ArrayList<>();
-        List<String> telecomProviderList = new ArrayList<>();
         eligibilityList.add("ALL");
-
-        if (telecomProvider != null) {
-            telecomProviderList.add(telecomProvider);
-        } else {
-            telecomProviderList.addAll(List.of("LG", "SKT", "KT"));
-        }
 
         if (birthdate != null) {
             LocalDate birthLocalDate = birthdate.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
             int age = Period.between(birthLocalDate, LocalDate.now()).getYears();
 
-            if (age <= 18) eligibilityList.add("청소년");
-            else if (age <= 34) eligibilityList.add("청년");
-            else if (age >= 65) eligibilityList.add("시니어");
+            if (age <= 12) {
+                eligibilityList.add("KID");
+            } else if (age <= 18) {
+                eligibilityList.add("BOY");
+            } else if (age <= 34) {
+                eligibilityList.add("YOUTH");
+            } else if (age >= 65) {
+                eligibilityList.add("OLD");
+            }
         } else {
-            eligibilityList.add("청소년");
-            eligibilityList.add("청년");
-            eligibilityList.add("시니어");
+            eligibilityList.add("KID");
+            eligibilityList.add("BOY");
+            eligibilityList.add("YOUTH");
+            eligibilityList.add("OLD");
         }
+        eligibilityList.add("SOLDIER");
 
-        if (name != null && !name.isBlank()) {
-            return planService.findPlanByPropsWithName(eligibilityList, telecomProviderList, name);
-        } else {
-            return planService.findPlanByPropsWithoutName(eligibilityList, telecomProviderList);
-        }
+        List<Plan> plans = planService.findPlanByBirthDate(eligibilityList);
+
+        pythonClient.sendPlans(plans);
+
+        return ResponseEntity.ok(plans);
+    }
+
+
+    @PostMapping("/plan/sync")
+    public ResponseEntity<Void> syncPlansToPython() {
+        List<Plan> plans = planService.findAllPlansForLG();
+        pythonClient.sendPlans(plans);
+        return ResponseEntity.ok().build();
     }
 }
 

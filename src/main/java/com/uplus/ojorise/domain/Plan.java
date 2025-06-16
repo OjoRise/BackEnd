@@ -1,18 +1,10 @@
 package com.uplus.ojorise.domain;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.*;
 
 enum Eligibility {
-    ALL, KID, BOY, YOUTH, OLD, SOLDIER, WELFARE
-}
-
-enum MobileType {
-    _5G, LTE;
-
-    @Override
-    public String toString() {
-        return this == _5G ? "5G" : name();
-    }
+    ALL, KID, BOY, YOUTH, OLD, SOLDIER
 }
 
 enum TelecomProvider {
@@ -25,19 +17,20 @@ enum TelecomProvider {
 @AllArgsConstructor
 @Builder
 public class Plan {
-    private Integer planId;
+    private Long planId;
     private String name;
     private String baseDataGb;
     private String dailyDataGb;
     private String sharingDataGb;
-    private Integer monthlyFee;
+    private int monthlyFee;
     private String voiceCallPrice;
     private String sms;
-    private Integer throttleSpeedKbps;
+    private int throttleSpeedKbps;
     private Eligibility eligibility;
     private String mobileType;
-    private Boolean isOnline;
     private String planUrl;
     private TelecomProvider telecomProvider;
     private String description;
+    @JsonProperty("isOnline")
+    private boolean isOnline;
 }

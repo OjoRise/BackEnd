@@ -34,7 +34,8 @@ public class SecurityConfig {
                                 "/webjars/**",
                                 "/auth/kakao/**",
                                 "/auth/refresh",
-                                "/error"
+                                "/error",
+                                "/plan/**"
                         ).permitAll()
                         .anyRequest().authenticated()
                 )
@@ -61,9 +62,10 @@ public class SecurityConfig {
                 "http://localhost:3000",
                 "http://localhost:8080",
                 "https://yople.vercel.app",
-                "https://backend-ojorise.onrender.com"
+                "https://backend-ojorise.onrender.com",
+                "http://localhost:8000"
         ));
-        config.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "OPTIONS"));
+        config.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "PATCH", "OPTIONS"));
         config.setAllowedHeaders(List.of("*"));
         config.setExposedHeaders(List.of("*"));
         config.setAllowCredentials(true);
