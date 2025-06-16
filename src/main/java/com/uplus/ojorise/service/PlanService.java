@@ -13,11 +13,12 @@ public class PlanService {
 
     private final StatusMapper statusMapper;
 
-    public List<Plan> findPlanByPropsWithName(List<String> eligibilityList, List<String> telecomProviderList, String name) {
-        return statusMapper.findPlanByPropsWithName(eligibilityList, telecomProviderList, name);
+    public List<Plan> findPlanByBirthDate(List<String> eligibilityList) {
+        return statusMapper.findPlanByBirthDate(eligibilityList);
+    }
+    
+    public List<Plan> findAllPlansForLG() {
+        return statusMapper.findAllPlansForLG();
     }
 
-    public List<Plan> findPlanByPropsWithoutName(List<String> eligibilityList, List<String> telecomProviderList) {
-        return statusMapper.findPlanByPropsWithoutName(eligibilityList, telecomProviderList);
-    }
 }
