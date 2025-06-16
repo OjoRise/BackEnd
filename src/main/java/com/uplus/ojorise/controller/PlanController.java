@@ -24,7 +24,7 @@ public class PlanController {
     private final PythonClient pythonClient;
 
     @GetMapping("/plan")
-    public List<Plan> getPlanByBirthDate(
+    public ResponseEntity<List<Plan>> getPlanByBirthDate(
             @RequestParam(name = "birthdate", required = false)
             @DateTimeFormat(pattern = "yyyy-MM-dd") Date birthdate
     ) {
@@ -35,25 +35,36 @@ public class PlanController {
             LocalDate birthLocalDate = birthdate.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
             int age = Period.between(birthLocalDate, LocalDate.now()).getYears();
 
-            if (age <= 18) eligibilityList.add("청소년");
-            else if (age <= 34) eligibilityList.add("청년");
-            else if (age >= 65) eligibilityList.add("시니어");
+            if (age <= 12) {
+                eligibilityList.add("KID");
+            } else if (age <= 18) {
+                eligibilityList.add("BOY");
+            } else if (age <= 34) {
+                eligibilityList.add("YOUTH");
+            } else if (age >= 65) {
+                eligibilityList.add("OLD");
+            }
         } else {
-            eligibilityList.add("청소년");
-            eligibilityList.add("청년");
-            eligibilityList.add("시니어");
+            eligibilityList.add("KID");
+            eligibilityList.add("BOY");
+            eligibilityList.add("YOUTH");
+            eligibilityList.add("OLD");
         }
+        eligibilityList.add("SOLDIER");
 
+        List<Plan> plans = planService.findPlanByBirthDate(eligibilityList);
 
-        return planService.findPlanByBirthDate(eligibilityList);
+        pythonClient.sendPlans(plans);
+
+        return ResponseEntity.ok(plans);
     }
-    
+
+
     @PostMapping("/plan/sync")
     public ResponseEntity<Void> syncPlansToPython() {
         List<Plan> plans = planService.findAllPlansForLG();
         pythonClient.sendPlans(plans);
         return ResponseEntity.ok().build();
     }
-
 }
 

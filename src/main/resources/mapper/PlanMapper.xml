@@ -9,18 +9,17 @@
         <result property="name" column="name" />
         <result property="baseDataGb" column="base_data_gb" />
         <result property="dailyDataGb" column="daily_data_gb" />
-        <result property="dailyDataMb" column="daily_data_mb" />
         <result property="sharingDataGb" column="sharing_data_gb" />
-        <result property="sharingDataMb" column="sharing_data_mb" />
         <result property="monthlyFee" column="monthly_fee" />
         <result property="voiceCallPrice" column="voice_call_price" />
-        <result property="smsIncluded" column="sms_included" />
+        <result property="sms" column="sms" />
         <result property="throttleSpeedKbps" column="throttle_speed_kbps" />
         <result property="eligibility" column="eligibility" />
         <result property="mobileType" column="mobile_type" />
-        <result property="dataType" column="data_type" />
+        <result property="isOnline" column="is_online" />
         <result property="planUrl" column="plan_url" />
         <result property="telecomProvider" column="telecom_provider" />
+        <result property="description" column="description" />
     </resultMap>
 
     <select id="findPlanByBirthDate" resultMap="PlanResultMap">
@@ -34,7 +33,7 @@
     
     <select id="findAllPlansForLG" resultMap="PlanResultMap">
 	    SELECT * FROM plan
-	    WHERE telecom_provider = 'LG'
+	    WHERE telecom_provider = "LG"
 	</select>
 
 </mapper>
