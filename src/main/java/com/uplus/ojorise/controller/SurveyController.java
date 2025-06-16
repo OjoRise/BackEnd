@@ -30,8 +30,9 @@ public class SurveyController {
                     .birthdate(dto.getBirthdate())
                     .telecomProvider(dto.getTelecomProvider())
                     .planName(dto.getPlanName())
-                    .contractTerm(dto.getContractTerm())
+                    .planPrice(dto.getPlanPrice())
                     .familyBundle(dto.getFamilyBundle())
+                    .familyNum(dto.getFamilyNum())
                     .build();
 
             surveyService.saveSurvey(accessToken, survey);
@@ -41,8 +42,8 @@ public class SurveyController {
         }
     }
 
-    @GetMapping
     @Operation(summary = "통신사 기반 요금제 조회", description = "요청한 통신사에 해당하는 요금제 목록을 반환합니다.")
+    @GetMapping
     public ResponseEntity<List<PlanResponse>> getPlansByProvider(@RequestParam("telecom_provider") String telecomProvider) {
         List<Plan> plans = surveyService.getPlansByTelecomProvider(telecomProvider);
 
@@ -52,4 +53,50 @@ public class SurveyController {
 
         return ResponseEntity.ok(summaries);
     }
+
+    @Operation(summary = "설문 결과 조회", description = "설문 결과를 조회합니다.")
+    @GetMapping("/result")
+    public ResponseEntity<?> getSurveyResult(HttpServletRequest request) {
+        try {
+            String accessToken = (String) request.getAttribute("accessToken");
+            Survey survey = surveyService.getSurvey(accessToken);
+
+            SurveyResponse result = SurveyResponse.builder()
+                    .birthdate(survey.getBirthdate())
+                    .telecomProvider(survey.getTelecomProvider())
+                    .planName(survey.getPlanName())
+                    .planPrice(survey.getPlanPrice())
+                    .familyBundle(survey.getFamilyBundle())
+                    .familyNum(survey.getFamilyNum())
+                    .build();
+
+            return ResponseEntity.ok(result);
+        } catch (Exception e) {
+            return ResponseEntity.status(500).body("설문 조회 실패: " + e.getMessage());
+        }
+    }
+
+    @Operation(summary = "설문 결과 수정", description = "설문 결과를 수정합니다.")
+    @PatchMapping
+    public ResponseEntity<?> updateSurvey(@RequestBody SurveyResponse dto,
+                                          HttpServletRequest request) {
+        try {
+            String accessToken = (String) request.getAttribute("accessToken");
+
+            Survey survey = Survey.builder()
+                    .birthdate(dto.getBirthdate())
+                    .telecomProvider(dto.getTelecomProvider())
+                    .planName(dto.getPlanName())
+                    .planPrice(dto.getPlanPrice())
+                    .familyBundle(dto.getFamilyBundle())
+                    .familyNum(dto.getFamilyNum())
+                    .build();
+
+            surveyService.updateSurvey(accessToken, survey);
+            return ResponseEntity.ok().body("설문 수정 완료");
+        } catch (Exception e) {
+            return ResponseEntity.status(500).body("설문 수정 실패: " + e.getMessage());
+        }
+    }
+
 }

@@ -16,9 +16,10 @@ public class WebConfig implements WebMvcConfigurer {
                         "http://localhost:3000",
                         "http://localhost:8080",
                         "https://yople.vercel.app",
-                        "https://backend-ojorise.onrender.com"
+                        "https://backend-ojorise.onrender.com",
+                        "http://localhost:8000"
                 )
-                .allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS")
+                .allowedMethods("GET", "POST", "PUT", "DELETE", "PATCH", "OPTIONS")
                 .allowedHeaders("*")
                 .exposedHeaders("*")
                 .allowCredentials(true)
