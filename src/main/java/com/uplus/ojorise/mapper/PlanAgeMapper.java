@@ -7,4 +7,6 @@ import org.apache.ibatis.annotations.Param;
 @Mapper
 public interface PlanAgeMapper {
     PlanAge getResult(@Param("id") Long id);
+    void insertPlanAge(@Param("planAge") PlanAge planAge);
+    void updatePlanAge(@Param("planAge") PlanAge planAge);
 }

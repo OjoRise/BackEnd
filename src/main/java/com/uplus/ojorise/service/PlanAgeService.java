@@ -16,6 +16,22 @@ public class PlanAgeService {
         Long userId = jwtUtil.getUserIdFromToken(accessToken);
         return planAgeMapper.getResult(userId);
     }
+
+    public void insertPlanAge(String accessToken, String age) {
+        Long userId = jwtUtil.getUserIdFromToken(accessToken);
+        PlanAge planAge = new PlanAge();
+        planAge.setId(userId);
+        planAge.setPlanAgeResult(age);
+        planAgeMapper.insertPlanAge(planAge);
+    }
+
+    public void updatePlanAge(String accessToken, String age) {
+        Long userId = jwtUtil.getUserIdFromToken(accessToken);
+        PlanAge planAge = planAgeMapper.getResult(userId);
+        planAge.setPlanAgeResult(age);
+        planAgeMapper.updatePlanAge(planAge);
+
+    }
 }
 
 
