@@ -1,0 +1,19 @@
+package com.uplus.ojorise.service;
+
+import com.uplus.ojorise.domain.TongBTI;
+import com.uplus.ojorise.mapper.TongBTIMapper;
+import com.uplus.ojorise.util.JwtUtil;
+import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Service;
+
+@Service
+@RequiredArgsConstructor
+public class TongBTIService {
+    private final TongBTIMapper tongBTIMapper;
+    private final JwtUtil jwtUtil;
+
+    public TongBTI getTongResult(String accessToken) {
+        Long userId = jwtUtil.getUserIdFromToken(accessToken);
+        return tongBTIMapper.getResult(userId);
+    }
+}

@@ -9,6 +9,7 @@ import java.util.List;
 @Mapper
 public interface SurveyMapper {
     void insertSurvey(Survey survey);
-
     List<Plan> findByTelecomProvider(@Param("telecomProvider") String telecomProvider);
+    Survey getSurvey(@Param("id") Long id);
+    void updateSurvey(Survey survey);
 }
