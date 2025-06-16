@@ -30,7 +30,7 @@
         </foreach>
         AND telecom_provider = "LG"
     </select>
-    
+
     <select id="findAllPlansForLG" resultMap="PlanResultMap">
 	    SELECT * FROM plan
 	    WHERE telecom_provider = "LG"
