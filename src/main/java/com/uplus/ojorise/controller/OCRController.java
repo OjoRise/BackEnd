@@ -6,6 +6,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -19,7 +20,7 @@ public class OCRController {
 
     @PostMapping(value = "/google/ocr", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     @Operation(summary = "Google OCR 실행", description = "이미지 업로드 시, Google OCR 처리 후 결과 반환")
-    public ResponseEntity<String> runOCR(@RequestParam("image")MultipartFile file) {
+    public ResponseEntity<String> runOCR(@RequestParam("image")MultipartFile file, Authentication authentication) {
         try {
             String result = googleApiService.googleOCR(file);
             return ResponseEntity.ok(result);
