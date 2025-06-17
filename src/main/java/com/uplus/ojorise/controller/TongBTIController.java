@@ -23,7 +23,7 @@ public class TongBTIController {
             TongBTI result = tongBTIService.getTongResult(accessToken);
 
             if (result == null) {
-                return ResponseEntity.status(404).body("해당 유저의 통BTI 결과가 없습니다.");
+                return ResponseEntity.ok(Map.of("tongResult",""));
             }
 
             return ResponseEntity.ok(Map.of("tongResult",result.getTongResult()));

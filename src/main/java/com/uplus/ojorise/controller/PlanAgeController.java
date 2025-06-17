@@ -5,6 +5,7 @@ import com.uplus.ojorise.service.PlanAgeService;
 import io.swagger.v3.oas.annotations.Operation;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 import jakarta.servlet.http.HttpServletRequest;
 import java.util.Map;
@@ -17,13 +18,13 @@ public class PlanAgeController {
 
     @Operation(summary = "요금제 나이 테스트 결과 조회", description = "accessToken을 기반으로 해당 유저의 결과를 조회합니다.")
     @GetMapping("/result")
-    public ResponseEntity<?> getPlanAgeResult(HttpServletRequest request) {
+    public ResponseEntity<?> getPlanAgeResult(HttpServletRequest request, Authentication authentication) {
         try {
             String accessToken = (String) request.getAttribute("accessToken");
             PlanAge result = planAgeService.getPlanAgeResult(accessToken);
 
             if (result == null) {
-                return ResponseEntity.status(404).body("해당 유저의 요금제 나이 테스트 결과가 없습니다.");
+                return ResponseEntity.ok(Map.of("planAgeResult", ""));
             }
 
             return ResponseEntity.ok(Map.of("planAgeResult", result.getPlanAgeResult()));
