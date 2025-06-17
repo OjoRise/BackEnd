@@ -51,18 +51,6 @@ public class PlanAgeController {
             return ResponseEntity.status(500).body("통신 연령 저장 실패: " + e.getMessage());
         }
     }
-
-    @PutMapping("/result")
-    public ResponseEntity<?> updatePlanAgeResult(@RequestBody PlanAgeResponse dto, HttpServletRequest request) {
-        try {
-            String accessToken = (String) request.getAttribute("accessToken");
-            planAgeService.updatePlanAge(accessToken,dto.getAge());
-
-            return ResponseEntity.ok().body("통신 나이 갱신 완료");
-        } catch (Exception e) {
-            return ResponseEntity.status(500).body("통신 연령 갱신 실패: " + e.getMessage());
-        }
-    }
 }
 
 

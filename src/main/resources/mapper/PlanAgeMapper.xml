@@ -18,12 +18,7 @@
         ) VALUES (
                   #{id}, #{planAgeResult}
                          )
+        ON DUPLICATE KEY UPDATE
+            age = #{age}
     </insert>
-
-    <update id="updatePlanAge" parameterType="com.uplus.ojorise.domain.PlanAge">
-        Update planage
-        Set age = #{planAgeResult}
-        where id = #{id}
-    </update>
-
 </mapper>

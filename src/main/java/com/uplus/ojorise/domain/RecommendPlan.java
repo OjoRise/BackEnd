@@ -9,5 +9,5 @@ import lombok.*;
 @Builder
 public class RecommendPlan {
     private Long id;
-    private String [] planName;
+    private String planName;
 }

@@ -19,9 +19,10 @@ public class RecommendPlanService {
 
     public RecommendPlan insertRecommendPlan(String accessToken, String [] planList) {
         Long userId = jwtUtil.getUserIdFromToken(accessToken);
+
         RecommendPlan recommendPlan = new RecommendPlan();
         recommendPlan.setId(userId);
-        recommendPlan.setPlanName(planList);
+//        recommendPlan.setPlanName(planList);
         recommendPlanMapper.insertRecommendPlan(recommendPlan);
         return recommendPlanMapper.maintainRecommendPlan(userId);
     }
