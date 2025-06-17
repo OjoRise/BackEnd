@@ -3,8 +3,8 @@ package com.uplus.ojorise.domain;
 import lombok.Data;
 
 @Data
-public class RecommendPlan {
-    private int recommendId;
-    private int planId;
+public class DipPlan {
+    private int dipId;
     private int id;
+    private int planId;
 }
