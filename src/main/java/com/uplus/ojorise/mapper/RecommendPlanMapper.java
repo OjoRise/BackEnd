@@ -40,4 +40,9 @@ public interface RecommendPlanMapper {
 
     @Select("SELECT plan_id FROM plan WHERE name = #{name}")
     Integer findPlanIdByName(@Param("name") String name);
+
+    @Delete("""
+
+""")
+    void maintain(@Param("id") int id);
 }

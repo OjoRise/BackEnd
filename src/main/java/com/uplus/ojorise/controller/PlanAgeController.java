@@ -8,6 +8,7 @@ import io.swagger.v3.oas.annotations.Operation;
 import lombok.RequiredArgsConstructor;
 import org.apache.coyote.Response;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 import jakarta.servlet.http.HttpServletRequest;
 
@@ -40,13 +41,12 @@ public class PlanAgeController {
 
     @Operation(summary = "통신 연령 결과 저장", description = "planAge 테이블에 통신 연령 결과 저장")
     @PostMapping("/result")
-    public ResponseEntity<?> postPlanAgeResult(@RequestBody PlanAgeResponse dto, HttpServletRequest request) {
+    public ResponseEntity<?> postPlanAgeResult(@RequestBody PlanAgeResponse dto, Authentication authentication) {
+        Long userId = (Long) authentication.getPrincipal();
         try {
-            String accessToken = (String) request.getAttribute("accessToken");
-            String [] recommendList = new String[]{dto.getRecommendedPlan()};
-            planAgeService.insertPlanAge(accessToken,dto.getAge());
-//            recommendPlanService.insertRecommendPlan(accessToken,recommendList);
-            return ResponseEntity.ok().body(recommendPlanService.insertRecommendPlan(accessToken,recommendList));
+            planAgeService.insertPlanAge(userId,dto.getAge());
+            recommendPlanService.addAllIfNotExists(userId.intValue(),dto.getRecommendedPlan());
+            return ResponseEntity.ok().body("통신 연령 저장 성공!");
         } catch (Exception e) {
             return ResponseEntity.status(500).body("통신 연령 저장 실패: " + e.getMessage());
         }

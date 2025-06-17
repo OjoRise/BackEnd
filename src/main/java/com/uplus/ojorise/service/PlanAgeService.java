@@ -17,8 +17,8 @@ public class PlanAgeService {
         return planAgeMapper.getResult(userId);
     }
 
-    public void insertPlanAge(String accessToken, String age) {
-        Long userId = jwtUtil.getUserIdFromToken(accessToken);
+    public void insertPlanAge(Long userId, String age) {
+
         PlanAge planAge = new PlanAge();
         planAge.setId(userId);
         planAge.setPlanAgeResult(age);
