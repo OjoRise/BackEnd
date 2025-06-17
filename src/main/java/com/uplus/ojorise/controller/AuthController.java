@@ -49,7 +49,7 @@ public class AuthController {
         response.addCookie(refreshCookie);
 
         //accessToken
-        String redirectUrl = "http://localhost:3000/?accessToken=" + loginResponse.getAccessToken();
+        String redirectUrl = "http://localhost:3000/login/success?accessToken=" + loginResponse.getAccessToken();
         response.sendRedirect(redirectUrl);
     }
 
