@@ -1,11 +1,12 @@
 package com.uplus.ojorise.controller;
 
-import com.uplus.ojorise.domain.Question;
 import com.uplus.ojorise.domain.TongBTI;
+import com.uplus.ojorise.dto.TongBTIRequest;
 import com.uplus.ojorise.service.TongBTIService;
 import io.swagger.v3.oas.annotations.Operation;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 import jakarta.servlet.http.HttpServletRequest;
 
@@ -26,12 +27,29 @@ public class TongBTIController {
             TongBTI result = tongBTIService.getTongResult(accessToken);
 
             if (result == null) {
-                return ResponseEntity.ok(Map.of("tongResult",""));
+                return ResponseEntity.ok(Map.of("tongResult", ""));
             }
 
-            return ResponseEntity.ok(Map.of("tongResult",result.getTongResult()));
+            return ResponseEntity.ok(Map.of("tongResult", result.getTongName()));
         } catch (Exception e) {
             return ResponseEntity.status(500).body("조회 실패: " + e.getMessage());
         }
+    }
+
+    @Operation(
+            summary = "통BTI 결과 저장",
+            description = "프론트에서 계산된 통BTI 유형(tongName)을 받아서, 해당 유저의 결과를 저장합니다."
+    )
+    @PostMapping
+    public ResponseEntity<Map<String, Object>> createTongBTI(@RequestBody TongBTIRequest request, Authentication auth) {
+        String tongName = request.getTongName();
+        if (tongName == null) {
+            return ResponseEntity.badRequest().body(Map.of("error", "Missing tongName"));
+        }
+
+        Long userId = (Long) auth.getPrincipal();
+        Long tongId = tongBTIService.saveTongBTI(userId, tongName);
+
+        return ResponseEntity.ok(Map.of("id", tongId, "tongName", tongName));
     }
 }

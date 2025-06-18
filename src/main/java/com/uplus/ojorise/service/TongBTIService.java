@@ -16,4 +16,12 @@ public class TongBTIService {
         Long userId = jwtUtil.getUserIdFromToken(accessToken);
         return tongBTIMapper.getResult(userId);
     }
+
+    public Long saveTongBTI(Long userId, String tongName) {
+        Long tongId = tongBTIMapper.findTongIdByName(tongName);
+        if (tongId == null) throw new RuntimeException("해당 유형 없음");
+
+        tongBTIMapper.insertTongBTIResult(userId, tongId);
+        return tongId;
+    }
 }
