@@ -1,5 +1,6 @@
 package com.uplus.ojorise.controller;
 
+import com.uplus.ojorise.domain.Question;
 import com.uplus.ojorise.domain.TongBTI;
 import com.uplus.ojorise.service.TongBTIService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -7,6 +8,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import jakarta.servlet.http.HttpServletRequest;
+
+import java.util.List;
 import java.util.Map;
 
 @RestController

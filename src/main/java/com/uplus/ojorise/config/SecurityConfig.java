@@ -35,7 +35,9 @@ public class SecurityConfig {
                                 "/auth/kakao/**",
                                 "/auth/refresh",
                                 "/error",
-                                "/plan/**"
+                                "/plan/**",
+                                //"/tongbti"
+                                "/question"
                         ).permitAll()
                         .anyRequest().authenticated()
                 )
