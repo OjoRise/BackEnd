@@ -28,6 +28,8 @@
                family_num AS familyNum
         FROM survey
         WHERE id = #{id}
+        ORDER BY created_at DESC
+        LIMIT 1
     </select>
 
     <update id="updateSurvey" parameterType="com.uplus.ojorise.domain.Survey">
@@ -39,5 +41,7 @@
             family_bundle = #{familyBundle},
             family_num = #{familyNum}
         WHERE id = #{id}
+        ORDER BY created_at DESC
+        LIMIT 1
     </update>
 </mapper>
