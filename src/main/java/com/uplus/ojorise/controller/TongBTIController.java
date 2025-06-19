@@ -1,6 +1,7 @@
 package com.uplus.ojorise.controller;
 
 import com.uplus.ojorise.domain.TongBTI;
+import com.uplus.ojorise.dto.TongBTIPlanResponse;
 import com.uplus.ojorise.dto.TongBTIRequest;
 import com.uplus.ojorise.service.TongBTIService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -52,4 +53,16 @@ public class TongBTIController {
 
         return ResponseEntity.ok(Map.of("id", tongId, "tongName", tongName));
     }
+
+    @Operation(summary = "통BTI 유형으로 요금제 상세 조회", description = "tongName을 기반으로 통BTI 설명 + 요금제 상세 정보를 조회합니다.")
+    @GetMapping("/info")
+    public ResponseEntity<?> getTongBTIInfo(@RequestParam String tongName) {
+        try {
+            TongBTIPlanResponse response = tongBTIService.getTongBTIWithPlanInfo(tongName);
+            return ResponseEntity.ok(response);
+        } catch (Exception e) {
+            return ResponseEntity.status(500).body("조회 실패: " + e.getMessage());
+        }
+    }
+
 }

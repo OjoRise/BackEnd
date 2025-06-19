@@ -1,6 +1,7 @@
 package com.uplus.ojorise.service;
 
 import com.uplus.ojorise.domain.TongBTI;
+import com.uplus.ojorise.dto.TongBTIPlanResponse;
 import com.uplus.ojorise.mapper.TongBTIMapper;
 import com.uplus.ojorise.util.JwtUtil;
 import lombok.RequiredArgsConstructor;
@@ -23,5 +24,9 @@ public class TongBTIService {
 
         tongBTIMapper.insertTongBTIResult(userId, tongId);
         return tongId;
+    }
+
+    public TongBTIPlanResponse getTongBTIWithPlanInfo(String tongName) {
+        return tongBTIMapper.findTongBTIWithPlan(tongName);
     }
 }

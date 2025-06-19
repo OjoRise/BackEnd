@@ -36,7 +36,7 @@ public class SecurityConfig {
                                 "/auth/refresh",
                                 "/error",
                                 "/plan/**",
-                                //"/tongbti"
+                                "/tongbti/info",
                                 "/question"
                         ).permitAll()
                         .anyRequest().authenticated()
