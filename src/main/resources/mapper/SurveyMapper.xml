@@ -7,10 +7,17 @@
 
     <insert id="insertSurvey" parameterType="com.uplus.ojorise.domain.Survey">
         INSERT INTO survey (
-            id, birthdate, telecom_provider, plan_name, plan_price, family_bundle, family_num
+        id, birthdate, telecom_provider, plan_name, plan_price, family_bundle, family_num
         ) VALUES (
-                     #{id}, #{birthdate}, #{telecomProvider}, #{planName}, #{planPrice}, #{familyBundle}, #{familyNum}
-                 )
+        #{id}, #{birthdate}, #{telecomProvider}, #{planName}, #{planPrice}, #{familyBundle}, #{familyNum}
+        )
+        ON DUPLICATE KEY UPDATE
+        birthdate = VALUES(birthdate),
+        telecom_provider = VALUES(telecom_provider),
+        plan_name = VALUES(plan_name),
+        plan_price = VALUES(plan_price),
+        family_bundle = VALUES(family_bundle),
+        family_num = VALUES(family_num)
     </insert>
 
     <select id="findByTelecomProvider" resultType="com.uplus.ojorise.domain.Plan">
