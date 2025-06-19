@@ -41,10 +41,12 @@ public class PlanAgeController {
 
     @Operation(summary = "통신 연령 결과 저장", description = "planAge 테이블에 통신 연령 결과 저장")
     @PostMapping("/result")
-    public ResponseEntity<?> postPlanAgeResult(@RequestBody PlanAgeResponse dto, Authentication authentication) {
+    public ResponseEntity<String> postPlanAgeResult(@RequestBody PlanAgeResponse dto, Authentication authentication) {
+        System.out.println("userID : ");
         Long userId = (Long) authentication.getPrincipal();
+        System.out.println("userID : "+userId);
         try {
-            planAgeService.insertPlanAge(userId,dto.getAge());
+            planAgeService.insertPlanAge(userId.intValue(),dto.getAge());
             recommendPlanService.addAllIfNotExists(userId.intValue(),dto.getRecommendedPlan());
             return ResponseEntity.ok().body("통신 연령 저장 성공!");
         } catch (Exception e) {

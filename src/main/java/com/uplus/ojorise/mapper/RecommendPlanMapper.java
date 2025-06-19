@@ -42,7 +42,17 @@ public interface RecommendPlanMapper {
     Integer findPlanIdByName(@Param("name") String name);
 
     @Delete("""
-
+DELETE FROM recommendplan
+WHERE id = #{id}
+  AND recommend_id IN (
+    SELECT recommend_id FROM (
+      SELECT recommend_id
+      FROM recommendplan
+      WHERE id = #{id}
+      ORDER BY recommend_id desc
+      LIMIT 999 OFFSET 5
+    ) AS to_delete
+  );
 """)
     void maintain(@Param("id") int id);
 }

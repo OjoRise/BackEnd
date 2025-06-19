@@ -41,5 +41,6 @@ public class RecommendPlanService {
         for (String name : planNames) {
             addIfNotExists(id, name);
         }
+        recommendPlanMapper.maintain(id);
     }
 }

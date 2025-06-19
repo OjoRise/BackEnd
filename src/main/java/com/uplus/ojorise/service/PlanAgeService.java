@@ -17,7 +17,7 @@ public class PlanAgeService {
         return planAgeMapper.getResult(userId);
     }
 
-    public void insertPlanAge(Long userId, String age) {
+    public void insertPlanAge(int userId, String age) {
 
         PlanAge planAge = new PlanAge();
         planAge.setId(userId);

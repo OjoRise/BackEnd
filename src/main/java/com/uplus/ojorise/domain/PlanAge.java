@@ -9,6 +9,6 @@ import lombok.*;
 @Builder
 public class PlanAge {
     private Long planAgeId;
-    private Long id;
+    private int id;
     private String planAgeResult;
 }
