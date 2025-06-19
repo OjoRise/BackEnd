@@ -34,4 +34,7 @@
         UPDATE user SET is_withdraw = false WHERE id = #{userId}
     </update>
 
+    <select id ='getUserIsSurvey'>
+        SELECT is_surveyed FROM user WHERE id = #{userId}
+    </select>
 </mapper>

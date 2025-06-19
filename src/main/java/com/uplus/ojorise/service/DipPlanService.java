@@ -20,4 +20,6 @@ public class DipPlanService {
     public void delete(int id, int planId) {
         dipPlanMapper.delete(id, planId);
     }
+
+    public void insert(int id, int planId) { dipPlanMapper.insert(id, planId); }
 }
