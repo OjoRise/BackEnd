@@ -19,4 +19,7 @@ public interface DipPlanMapper {
 
     @Delete("DELETE FROM dipplan WHERE id = #{id} AND plan_id = #{planId}")
     void delete(@Param("id") int id, @Param("planId") int planId);
+
+    @Insert("INSERT INTO dipplan(id, plan_id) VALUES (#{id}, #{planId})")
+    void insert(@Param("id") int id, @Param("planId") int planId);
 }

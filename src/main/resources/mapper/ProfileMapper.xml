@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.uplus.ojorise.mapper.ProfileMapper">
+    <resultMap id="ProfileResultMap" type="com.uplus.ojorise.domain.Profile">
+        <id     property="id"               column="id" />
+        <result property="birthdate"        column="birthdate" />
+        <result property="telecomProvider"  column="telecom_provider" />
+        <result property="planName"         column="plan_name" />
+        <result property="familyBundle"     column="family_bundle" />
+        <result property="tongResult"       column="tong_result" />
+    </resultMap>
+
+    <select id="getProfile" resultMap="ProfileResultMap" parameterType="int">
+        SELECT
+            u.id AS id,
+            s.birthdate AS birthdate,
+            s.telecom_provider AS telecom_provider,
+            s.plan_name AS plan_name,
+            s.family_bundle AS family_bundle,
+            t.tong_result AS tong_result
+        FROM user u
+                 LEFT JOIN survey s  ON u.id = s.id
+                 LEFT JOIN tongBTI t ON u.id = t.id
+        WHERE u.id = #{id}
+    </select>
+</mapper>
