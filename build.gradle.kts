@@ -19,6 +19,17 @@ configurations {
     }
 }
 
+configurations.all {
+    resolutionStrategy {
+        eachDependency {
+            if (requested.group == "com.google.guava" && requested.name == "listenablefuture") {
+                useTarget("com.google.guava:guava:32.1.1-jre")
+                because("Avoid conflict with listenablefuture dummy module")
+            }
+        }
+    }
+}
+
 repositories {
     mavenCentral()
 }
@@ -41,7 +52,9 @@ dependencies {
     implementation("io.jsonwebtoken:jjwt-api:0.11.5")
     runtimeOnly("io.jsonwebtoken:jjwt-impl:0.11.5")
     runtimeOnly("io.jsonwebtoken:jjwt-jackson:0.11.5")
-
+    //google
+    implementation("com.google.cloud:google-cloud-vision:3.20.0")
+    implementation("com.google.protobuf:protobuf-java:3.25.1")
 }
 
 tasks.withType<Test> {

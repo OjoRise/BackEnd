@@ -16,7 +16,7 @@ import java.util.List;
 import java.util.Map;
 
 @RestController
-@RequestMapping("/planage")
+@RequestMapping("/age")
 @RequiredArgsConstructor
 public class PlanAgeController {
     private final PlanAgeService planAgeService;
@@ -24,16 +24,16 @@ public class PlanAgeController {
 
     @Operation(summary = "요금제 나이 테스트 결과 조회", description = "accessToken을 기반으로 해당 유저의 결과를 조회합니다.")
     @GetMapping("/result")
-    public ResponseEntity<?> getPlanAgeResult(HttpServletRequest request) {
+    public ResponseEntity<?> getAge(HttpServletRequest request) {
         try {
             String accessToken = (String) request.getAttribute("accessToken");
-            PlanAge result = planAgeService.getPlanAgeResult(accessToken);
+            PlanAge result = planAgeService.getAge(accessToken);
 
             if (result == null) {
-                return ResponseEntity.status(404).body("해당 유저의 요금제 나이 테스트 결과가 없습니다.");
+                return ResponseEntity.ok(Map.of("age", ""));
             }
 
-            return ResponseEntity.ok(Map.of("planAgeResult", result.getPlanAgeResult()));
+            return ResponseEntity.ok(Map.of("age", result.getAge()));
         } catch (Exception e) {
             return ResponseEntity.status(500).body("조회 실패: " + e.getMessage());
         }
@@ -42,9 +42,7 @@ public class PlanAgeController {
     @Operation(summary = "통신 연령 결과 저장", description = "planAge 테이블에 통신 연령 결과 저장")
     @PostMapping("/result")
     public ResponseEntity<String> postPlanAgeResult(@RequestBody PlanAgeResponse dto, Authentication authentication) {
-        System.out.println("userID : ");
         Long userId = (Long) authentication.getPrincipal();
-        System.out.println("userID : "+userId);
         try {
             planAgeService.insertPlanAge(userId.intValue(),dto.getAge());
             recommendPlanService.addAllIfNotExists(userId.intValue(),dto.getRecommendedPlan());

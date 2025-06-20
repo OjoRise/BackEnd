@@ -12,7 +12,7 @@ public class PlanAgeService {
     private final PlanAgeMapper planAgeMapper;
     private final JwtUtil jwtUtil;
 
-    public PlanAge getPlanAgeResult(String accessToken) {
+    public PlanAge getAge(String accessToken) {
         Long userId = jwtUtil.getUserIdFromToken(accessToken);
         return planAgeMapper.getResult(userId);
     }
@@ -21,7 +21,7 @@ public class PlanAgeService {
 
         PlanAge planAge = new PlanAge();
         planAge.setId(userId);
-        planAge.setPlanAgeResult(age);
+        planAge.setAge(age);
         planAgeMapper.insertPlanAge(planAge);
     }
 }
