@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.uplus.ojorise.mapper.BrowsePlanMapper">
+
+    <resultMap id="BrowsePlanResultMap" type="com.uplus.ojorise.domain.BrowsePlan">
+        <result property="planId" column="plan_id" />
+        <result property="name" column="name" />
+        <result property="baseDataGb" column="base_data_gb" />
+        <result property="dailyDataGb" column="daily_data_gb" />
+        <result property="sharingDataGb" column="sharing_data_gb" />
+        <result property="monthlyFee" column="monthly_fee" />
+        <result property="voiceCallPrice" column="voice_call_price" />
+        <result property="sms" column="sms" />
+        <result property="mobileType" column="mobile_type" />
+        <result property="isOnline" column="is_online" />
+        <result property="planUrl" column="plan_url" />
+    </resultMap>
+
+    <select id="getBrowsePlanByIsOnline" resultMap="BrowsePlanResultMap">
+        SELECT plan_id, name, base_data_gb, daily_data_gb, sharing_data_gb, monthly_fee,
+               voice_call_price, sms, mobile_type, is_online, plan_url
+        FROM plan
+        WHERE telecom_provider = 'LG'
+          AND is_online = #{isOnline}
+        ORDER BY plan_id
+            LIMIT #{limit} OFFSET #{offset}
+    </select>
+
+    <select id="getBrowsePlanWithDipByIsOnline">
+        SELECT p.plan_id
+        FROM plan p
+                 JOIN dipplan d ON p.plan_id = d.plan_id
+        WHERE d.id = #{userId}
+          AND p.is_online = #{isOnline}
+          AND p.plan_id BETWEEN #{offset} AND #{offset} + #{limit}
+        ORDER BY p.plan_id
+    </select>
+</mapper>
