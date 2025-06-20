@@ -8,6 +8,6 @@ import lombok.*;
 @AllArgsConstructor
 @Builder
 public class PlanAge {
-    private Long id;
+    private int id;
     private String age;
 }

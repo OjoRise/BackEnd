@@ -22,6 +22,10 @@ public class RecommendPlanService {
         recommendPlanMapper.delete(id, planId);
     }
 
+    public void maintainRecommendPlan(int id) {
+        recommendPlanMapper.maintain(id);
+    }
+
     public void addIfNotExists(int id, String planName) {
         Integer planId = recommendPlanMapper.findPlanIdByName(planName);
         if (planId != null && !recommendPlanMapper.exists(id, planId)) {
@@ -37,5 +41,6 @@ public class RecommendPlanService {
         for (String name : planNames) {
             addIfNotExists(id, name);
         }
+        recommendPlanMapper.maintain(id);
     }
 }
