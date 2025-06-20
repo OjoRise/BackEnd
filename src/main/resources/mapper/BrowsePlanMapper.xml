@@ -29,9 +29,8 @@
             LIMIT #{limit} OFFSET #{offset}
     </select>
 
-    <select id="getBrowsePlanWithDipByIsOnline" resultMap="BrowsePlanResultMap">
-        SELECT p.plan_id, p.name, p.base_data_gb, p.daily_data_gb, p.sharing_data_gb, p.monthly_fee,
-               p.voice_call_price, p.sms, p.mobile_type, p.is_online, p.plan_url
+    <select id="getBrowsePlanWithDipByIsOnline">
+        SELECT p.plan_id
         FROM plan p
                  JOIN dipplan d ON p.plan_id = d.plan_id
         WHERE d.id = #{userId}

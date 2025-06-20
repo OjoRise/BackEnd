@@ -18,7 +18,7 @@ public class BrowsePlanController {
     private final BrowsePlanService browsePlanService;
 
     @GetMapping("/browse")
-    public ResponseEntity<List<List<BrowsePlan>>> getBrowsePlanByIsOnline(
+    public ResponseEntity<List> getBrowsePlanByIsOnline(
             Authentication authentication,
             @RequestParam(name = "isOnline") boolean isOnline,
             @RequestParam(name = "page") int page

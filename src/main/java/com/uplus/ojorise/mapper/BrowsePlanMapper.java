@@ -14,7 +14,7 @@ public interface BrowsePlanMapper {
             @Param("isOnline") boolean isOnline
     );
 
-    List<BrowsePlan> getBrowsePlanWithDipByIsOnline(
+    List<Integer> getBrowsePlanWithDipByIsOnline(
             @Param("userId") Long userId,
             @Param("limit") int limit,
             @Param("offset") int offset,
