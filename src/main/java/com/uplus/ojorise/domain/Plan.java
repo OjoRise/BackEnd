@@ -29,7 +29,7 @@ public class Plan {
     private Eligibility eligibility;
     private String mobileType;
     private String planUrl;
-    private TelecomProvider telecomProvider;
+    private String telecomProvider;
     private String description;
     private String benefit;
     @JsonProperty("isOnline")
