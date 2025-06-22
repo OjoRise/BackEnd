@@ -37,6 +37,8 @@ public class SecurityConfig {
                                 "/error",
                                 "/plan/**",
                                 "/google/ocr",
+                                "/survey/plan",
+                                "/myPlan/guest",
                                 "/tongbti/info",
                                 "/question"
                         ).permitAll()

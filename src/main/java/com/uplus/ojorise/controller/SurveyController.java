@@ -43,7 +43,7 @@ public class SurveyController {
     }
 
     @Operation(summary = "통신사 기반 요금제 조회", description = "요청한 통신사에 해당하는 요금제 목록을 반환합니다.")
-    @GetMapping
+    @GetMapping("/plan")
     public ResponseEntity<List<PlanResponse>> getPlansByProvider(@RequestParam("telecom_provider") String telecomProvider) {
         List<Plan> plans = surveyService.getPlansByTelecomProvider(telecomProvider);
 

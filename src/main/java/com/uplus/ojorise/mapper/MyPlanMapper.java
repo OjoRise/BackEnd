@@ -1,16 +1,16 @@
 package com.uplus.ojorise.mapper;
 
 import com.uplus.ojorise.domain.MyPlan;
+import com.uplus.ojorise.domain.Plan;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
-import java.util.List;
-
 @Mapper
 public interface MyPlanMapper {
-    List<MyPlan> findMyPlanAll();
+    MyPlan findMyPlanById(@Param("id") Long id);
 
-    List<MyPlan> findMyPlanByName(
-            @Param("name") String name
+    Plan findMyPlanByName(
+            @Param("planName") String planName,
+            @Param("telecomProvider") String telecomProvider
     );
 }
