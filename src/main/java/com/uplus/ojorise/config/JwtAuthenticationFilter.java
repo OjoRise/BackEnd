@@ -35,6 +35,7 @@ public class JwtAuthenticationFilter implements Filter {
                 || path.equals("/ojoRise/google/ocr")
                 || path.startsWith("/ojoRise/plan")
                 || path.equals("/ojoRise/myPlan/guest")
+                || path.equals("/ojoRise/survey/plan")
                 || path.contains("favicon")
                 || path.startsWith("/ojoRise/error")
                 || path.equals("/ojoRise/auth/refresh")

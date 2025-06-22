@@ -37,7 +37,8 @@ public class SecurityConfig {
                                 "/error",
                                 "/plan/**",
                                 "/google/ocr",
-                                "/myPlan/guest"
+                                "/myPlan/guest",
+                                "/survey/plan"
                         ).permitAll()
                         .anyRequest().authenticated()
                 )
