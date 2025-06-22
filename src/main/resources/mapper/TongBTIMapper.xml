@@ -6,9 +6,49 @@
 <mapper namespace="com.uplus.ojorise.mapper.TongBTIMapper">
 
     <select id="getResult" resultType="com.uplus.ojorise.domain.TongBTI">
-        SELECT tong_result AS tongResult
-        FROM tongBTI
-        WHERE id = #{id}
+        SELECT t.tong_id AS tongId,
+               t.tong_name AS tongName,
+               t.plan_id AS planId
+        FROM TongBTIResult r
+                 JOIN TongBTI t ON r.tong_id = t.tong_id
+        WHERE r.id = #{id}
+            LIMIT 1
+    </select>
+
+    <!-- findTongIdByName -->
+    <select id="findTongIdByName" resultType="long">
+        SELECT tong_id FROM TongBTI WHERE tong_name = #{tongName}
+    </select>
+
+    <!-- insertTongBTIResult -->
+    <insert id="insertTongBTIResult">
+        INSERT INTO TongBTIResult (id, tong_id)
+        VALUES (#{userId}, #{tongId})
+    </insert>
+
+    <select id="findTongBTIWithPlan" resultType="com.uplus.ojorise.dto.TongBTIPlanResponse">
+        SELECT
+            t.tong_id AS tongId,
+            t.tong_name AS tongName,
+            t.description AS tongDescription,
+            p.plan_id AS planId,
+            p.name AS planName,
+            p.base_data_gb,
+            p.daily_data_gb,
+            p.sharing_data_gb,
+            p.monthly_fee,
+            p.voice_call_price,
+            p.sms,
+            p.throttle_speed_kbps,
+            p.eligibility,
+            p.mobile_type,
+            p.is_online,
+            p.plan_url,
+            p.telecom_provider,
+            p.description AS planDescription
+        FROM TongBTI t
+                 JOIN Plan p ON t.plan_id = p.plan_id
+        WHERE t.tong_name = #{tongName}
             LIMIT 1
     </select>
 

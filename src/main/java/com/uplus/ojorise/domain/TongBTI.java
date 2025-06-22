@@ -8,7 +8,7 @@ import lombok.*;
 @AllArgsConstructor
 @Builder
 public class TongBTI {
-    private Long tongId;
-    private Long id;
-    private String tongResult;
+    private Integer tongId;
+    private Integer planId;
+    private String  tongName;
 }
