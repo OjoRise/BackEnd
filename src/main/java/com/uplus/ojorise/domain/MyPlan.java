@@ -1,20 +1,9 @@
 package com.uplus.ojorise.domain;
 
-import lombok.*;
+import lombok.Data;
 
-@Getter
-@Setter
-@NoArgsConstructor
-@AllArgsConstructor
-@Builder
+@Data
 public class MyPlan {
-    private String name;
-    private String baseDataGb;
-    private String dailyDataGb;
-    private String sharingDataGb;
-    private int monthlyFee;
-    private String voiceCallPrice;
-    private String sms;
-    private int throttleSpeedKbps;
-    private String mobileType;
+    private String telecomProvider;
+    private String planName;
 }

@@ -1,11 +1,10 @@
 package com.uplus.ojorise.service;
 
+import com.uplus.ojorise.domain.MyPlan;
+import com.uplus.ojorise.domain.Plan;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-import com.uplus.ojorise.domain.MyPlan;
 import com.uplus.ojorise.mapper.MyPlanMapper;
-
-import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -13,11 +12,11 @@ public class MyPlanService {
 
     private final MyPlanMapper myPlanMapper;
 
-    public List<MyPlan> findMyPlanAll() {
-        return myPlanMapper.findMyPlanAll();
+    public MyPlan findMyPlanById(Long id) {
+        return myPlanMapper.findMyPlanById(id);
     }
 
-    public List<MyPlan> findMyPlanByName(String name) {
-        return myPlanMapper.findMyPlanByName(name);
+    public Plan findMyPlanByName(MyPlan myPlan) {
+        return myPlanMapper.findMyPlanByName(myPlan.getPlanName(), myPlan.getTelecomProvider());
     }
 }

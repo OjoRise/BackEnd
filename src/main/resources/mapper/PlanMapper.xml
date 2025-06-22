@@ -13,6 +13,7 @@
         <result property="monthlyFee" column="monthly_fee" />
         <result property="voiceCallPrice" column="voice_call_price" />
         <result property="sms" column="sms" />
+        <result property="benenfit" column="benenfit" />
         <result property="throttleSpeedKbps" column="throttle_speed_kbps" />
         <result property="eligibility" column="eligibility" />
         <result property="mobileType" column="mobile_type" />

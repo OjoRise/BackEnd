@@ -1,30 +1,41 @@
 package com.uplus.ojorise.controller;
 
 import com.uplus.ojorise.domain.MyPlan;
+import com.uplus.ojorise.domain.Plan;
+import io.swagger.v3.oas.annotations.Operation;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RequestMapping;
 import com.uplus.ojorise.service.MyPlanService;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.List;
-
 @RestController
 @RequiredArgsConstructor
+@RequestMapping("/myplan")
 public class MyPlanController {
-    @Autowired
-    private MyPlanService myPlanService;
 
-    @GetMapping("/myplan")
-    public List<MyPlan> getMyPlanByName (
-            @RequestParam(required = false)
-            String name
-    ) {
-        if (name == null) {
-            return myPlanService.findMyPlanAll();
-        } else {
-            return myPlanService.findMyPlanByName(name);
+    private final MyPlanService myPlanService;
+
+    @GetMapping
+    @Operation(summary = "나의 요금제 조회", description = "사용자의 요금제 이름을 불러옵니다.")
+    public ResponseEntity<Plan> getMyPlanByName(Authentication authentication) {
+        Long userId = (Long) authentication.getPrincipal();
+
+        MyPlan myPlan = myPlanService.findMyPlanById(userId);
+        if(myPlan == null){
+            throw new RuntimeException("사용자의 설문 결과가 존재하지 않습니다.");
         }
+
+        System.out.println("planName: [" + myPlan.getPlanName() + "]");
+        System.out.println("telecomProvider: [" + myPlan.getTelecomProvider() + "]");
+
+        Plan plan = myPlanService.findMyPlanByName(myPlan);
+        if(plan == null){
+            throw new RuntimeException("요금제가 존재하지 않습니다.");
+        }
+
+        return ResponseEntity.ok(plan);
     }
 }
