@@ -18,17 +18,28 @@ public class BrowsePlanController {
     private final BrowsePlanService browsePlanService;
 
     @GetMapping("/browse")
-    public ResponseEntity<List> getBrowsePlanByIsOnline(
+    public ResponseEntity<List<BrowsePlan>> getBrowsePlanByIsOnline(
             Authentication authentication,
             @RequestParam(name = "isOnline") boolean isOnline,
             @RequestParam(name = "page") int page
     ) {
-        Long userId = (Long) authentication.getPrincipal();
-
         int limit = 5;
         int offset = (page - 1) * limit;
 
-        return ResponseEntity.ok(browsePlanService.getBrowsePlanByIsOnline(userId, limit, offset, isOnline));
+        return ResponseEntity.ok(browsePlanService.getBrowsePlanByIsOnline(limit, offset, isOnline));
+    }
+
+    @GetMapping("/browseDip")
+    public ResponseEntity<List<Integer>> getBrowseDipPlanByIsOnlineNonAuth(
+            Authentication authentication,
+            @RequestParam(name = "isOnline") boolean isOnline,
+            @RequestParam(name = "page") int page
+    ) {
+        int limit = 5;
+        int offset = (page - 1) * limit;
+
+        Long userId = (Long) authentication.getPrincipal();
+        return ResponseEntity.ok(browsePlanService.getBrowseDipPlanByIsOnlineNonAuth(userId, limit, offset, isOnline));
     }
 }
 
