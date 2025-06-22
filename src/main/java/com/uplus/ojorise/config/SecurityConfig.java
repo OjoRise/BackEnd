@@ -36,7 +36,8 @@ public class SecurityConfig {
                                 "/auth/refresh",
                                 "/error",
                                 "/plan/**",
-                                "/google/ocr"
+                                "/google/ocr",
+                                "/myPlan/guest"
                         ).permitAll()
                         .anyRequest().authenticated()
                 )

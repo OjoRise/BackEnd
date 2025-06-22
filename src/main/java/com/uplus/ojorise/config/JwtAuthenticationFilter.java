@@ -34,6 +34,7 @@ public class JwtAuthenticationFilter implements Filter {
                 || path.equals("/ojoRise/swagger-ui.html")
                 || path.equals("/ojoRise/google/ocr")
                 || path.startsWith("/ojoRise/plan")
+                || path.equals("/ojoRise/myPlan/guest")
                 || path.contains("favicon")
                 || path.startsWith("/ojoRise/error")
                 || path.equals("/ojoRise/auth/refresh")
