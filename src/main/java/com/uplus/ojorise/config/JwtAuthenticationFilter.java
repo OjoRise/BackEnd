@@ -39,7 +39,10 @@ public class JwtAuthenticationFilter implements Filter {
                 || path.contains("favicon")
                 || path.startsWith("/ojoRise/error")
                 || path.equals("/ojoRise/auth/refresh")
-                || path.startsWith("/ojoRise/auth/kakao")) {
+                || path.startsWith("/ojoRise/auth/kakao")
+                || path.equals("/ojoRise/question")
+                || path.equals("/ojoRise/tongbti/info")
+        ) {
             chain.doFilter(request, response);
             return;
         }
