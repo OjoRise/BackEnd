@@ -4,7 +4,7 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.uplus.ojorise.mapper.MyPlanMapper">
-    <resultMap id="MyPlanResultMap" type="com.uplus.ojorise.domain.MyPlan">
+    <resultMap id="PlanResultMap" type="com.uplus.ojorise.domain.Plan">
         <result property="name" column="name" />
         <result property="baseDataGb" column="base_data_gb" />
         <result property="dailyDataGb" column="daily_data_gb" />
@@ -12,16 +12,23 @@
         <result property="monthlyFee" column="monthly_fee" />
         <result property="voiceCallPrice" column="voice_call_price" />
         <result property="sms" column="sms" />
+        <result property="benefit" column="benefit" />
         <result property="throttleSpeedKbps" column="throttle_speed_kbps" />
         <result property="mobileType" column="mobile_type" />
     </resultMap>
 
-    <select id="findMyPlanAll" resultMap="MyPlanResultMap">
-        SELECT * from plan
+    <resultMap id="MyPlanResultMap" type="com.uplus.ojorise.domain.MyPlan">
+        <result property="planName" column="planName" />
+        <result property="telecomProvider" column="telecomProvider" />
+    </resultMap>
+
+    <select id="findMyPlanById" resultMap="MyPlanResultMap">
+        SELECT telecom_provider as telecomProvider, plan_name as planName from survey
+        WHERE id = #{id}
     </select>
 
-    <select id="findMyPlanByName" resultMap="MyPlanResultMap">
+    <select id="findMyPlanByName" resultMap="PlanResultMap">
         SELECT * from plan
-        WHERE name = #{name}
+        WHERE name = #{planName} AND telecom_provider = #{telecomProvider}
     </select>
 </mapper>

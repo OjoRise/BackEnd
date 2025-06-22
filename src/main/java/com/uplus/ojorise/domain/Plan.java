@@ -31,6 +31,7 @@ public class Plan {
     private String planUrl;
     private TelecomProvider telecomProvider;
     private String description;
+    private String benefit;
     @JsonProperty("isOnline")
     private boolean isOnline;
 }
