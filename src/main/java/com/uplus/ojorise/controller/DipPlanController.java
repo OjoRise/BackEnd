@@ -36,6 +36,7 @@ public class DipPlanController {
 
             if (findPlan.contains(planId)) {
                 dipPlanService.delete(userId.intValue(), planId);
+                return ResponseEntity.ok("찜한 요금제가 성공적으로 삭제되었습니다.");
             }
 
             dipPlanService.insert(userId.intValue(), planId);
