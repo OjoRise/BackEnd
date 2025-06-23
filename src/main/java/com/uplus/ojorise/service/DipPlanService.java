@@ -17,6 +17,10 @@ public class DipPlanService {
         return dipPlanMapper.findByUserId(id);
     }
 
+    public List<Integer> findByUserIdOnlyPlanId(int id) {
+        return dipPlanMapper.findByUserIdOnlyPlanId(id);
+    }
+
     public void delete(int id, int planId) {
         dipPlanMapper.delete(id, planId);
     }
