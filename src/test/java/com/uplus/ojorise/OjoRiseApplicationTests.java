@@ -10,8 +10,8 @@ import org.springframework.test.context.TestPropertySource;
         "KAKAO_CLIENT_SECRET=dummy",
         "KAKAO_REDIRECT_URI=https://localhost",
         "JWT_SECRET=test-secret",
-        "GOOGLE_APPLICATION_CREDENTIALS_BASE64 = dummy",
-        "GOOGLE_APPLICATION_CREDENTIALS = dummy"
+        "GOOGLE_APPLICATION_CREDENTIALS_BASE64=ZHVtbXk=",
+        "GOOGLE_APPLICATION_CREDENTIALS=dummy"
 })
 class OjoRiseApplicationTests {
     @Test

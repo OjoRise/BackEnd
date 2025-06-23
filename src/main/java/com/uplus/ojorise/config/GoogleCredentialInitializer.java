@@ -17,14 +17,20 @@ public class GoogleCredentialInitializer {
 
     @PostConstruct
     public void setupGoogleCredentials() throws IOException {
-        // Render의 쓰기 가능한 temp 디렉터리
+        if (credentialsBase64 == null || credentialsBase64.trim().isEmpty()) {
+            throw new IllegalStateException("GOOGLE_APPLICATION_CREDENTIALS_BASE64 is not set or empty");
+        }
+
+        byte[] decoded;
+        try {
+            decoded = Base64.getDecoder().decode(credentialsBase64);
+        } catch (IllegalArgumentException e) {
+            throw new IllegalStateException("Invalid Base64 for GOOGLE_APPLICATION_CREDENTIALS_BASE64", e);
+        }
+
         String tempPath = System.getProperty("java.io.tmpdir") + "/credentials.json";
-
-        // 디코딩 후 파일로 저장
-        byte[] decoded = Base64.getDecoder().decode(credentialsBase64);
         Files.write(Paths.get(tempPath), decoded);
-
-        // 시스템 환경변수로 설정 (Google SDK가 자동으로 사용함)
         System.setProperty("GOOGLE_APPLICATION_CREDENTIALS", tempPath);
     }
+
 }
