@@ -17,14 +17,11 @@ public class GoogleCredentialInitializer {
 
     @PostConstruct
     public void setupGoogleCredentials() throws IOException {
-        // Render의 쓰기 가능한 temp 디렉터리
         String tempPath = System.getProperty("java.io.tmpdir") + "/credentials.json";
 
-        // 디코딩 후 파일로 저장
         byte[] decoded = Base64.getDecoder().decode(credentialsBase64);
         Files.write(Paths.get(tempPath), decoded);
 
-        // 시스템 환경변수로 설정 (Google SDK가 자동으로 사용함)
         System.setProperty("GOOGLE_APPLICATION_CREDENTIALS", tempPath);
     }
 }
