@@ -1,5 +1,6 @@
 package com.uplus.ojorise.service;
 
+import com.uplus.ojorise.domain.AgeResult;
 import com.uplus.ojorise.domain.PlanAge;
 import com.uplus.ojorise.mapper.PlanAgeMapper;
 import com.uplus.ojorise.util.JwtUtil;
@@ -15,6 +16,10 @@ public class PlanAgeService {
     public PlanAge getAge(String accessToken) {
         Long userId = jwtUtil.getUserIdFromToken(accessToken);
         return planAgeMapper.getResult(userId);
+    }
+
+    public AgeResult getResult(String age) {
+        return planAgeMapper.getAgeResult(age);
     }
 
     public void insertPlanAge(int userId, String age) {
