@@ -12,13 +12,20 @@ public class WebConfig implements WebMvcConfigurer {
     @Override
     public void addCorsMappings(CorsRegistry registry) {
         registry.addMapping("/**")
-                .allowedOrigins("http://localhost:3000")
-                .allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS")
+                .allowedOrigins(
+                        "http://localhost:3000",
+                        "http://localhost:8080",
+                        "https://yople.vercel.app",
+                        "https://backend-ojorise.onrender.com",
+                        "http://localhost:8000"
+                )
+                .allowedMethods("GET", "POST", "PUT", "DELETE", "PATCH", "OPTIONS")
                 .allowedHeaders("*")
                 .exposedHeaders("*")
                 .allowCredentials(true)
                 .maxAge(3600);
     }
+
 
     @Override
     public void addInterceptors(InterceptorRegistry registry) {

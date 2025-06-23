@@ -11,7 +11,6 @@ import org.springframework.stereotype.Service;
 @Service
 @RequiredArgsConstructor
 public class UserService {
-
     private final KakaoApiService kakaoApiService;
     private final UserMapper userMapper;
     private final TokenMapper tokenMapper;
@@ -51,4 +50,10 @@ public class UserService {
 
         return kakaoUnlinkResult;
     }
+
+    public void completeSurvey(Long userId) {
+        userMapper.markSurvey(userId);
+    }
+
+    public boolean getUserIsSurvey(Long userId) { return userMapper.getUserIsSurvey(userId); };
 }

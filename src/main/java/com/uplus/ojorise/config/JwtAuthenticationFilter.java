@@ -32,10 +32,19 @@ public class JwtAuthenticationFilter implements Filter {
                 || path.startsWith("/ojoRise/swagger-resources")
                 || path.startsWith("/ojoRise/webjars")
                 || path.equals("/ojoRise/swagger-ui.html")
+                || path.equals("/ojoRise/google/ocr")
+                || path.startsWith("/ojoRise/plan")
+                || path.equals("/ojoRise/myPlan/guest")
+                || path.equals("/ojoRise/survey/plan")
                 || path.contains("favicon")
                 || path.startsWith("/ojoRise/error")
                 || path.equals("/ojoRise/auth/refresh")
-                || path.startsWith("/ojoRise/auth/kakao")) {
+                || path.startsWith("/ojoRise/auth/kakao")
+                || path.equals("/ojoRise/question")
+                || path.equals("/ojoRise/tongbti/info")
+                || path.equals("/ojoRise/browse")
+                || path.equals("/ojoRise/age")
+        ) {
             chain.doFilter(request, response);
             return;
         }
