@@ -1,7 +1,10 @@
 package com.uplus.ojorise.controller;
 
+import com.uplus.ojorise.domain.AgeResult;
+import com.uplus.ojorise.domain.BrowsePlan;
 import com.uplus.ojorise.domain.PlanAge;
 import com.uplus.ojorise.dto.PlanAgeResponse;
+import com.uplus.ojorise.service.BrowsePlanService;
 import com.uplus.ojorise.service.PlanAgeService;
 import com.uplus.ojorise.service.RecommendPlanService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -21,6 +24,7 @@ import java.util.Map;
 public class PlanAgeController {
     private final PlanAgeService planAgeService;
     private final RecommendPlanService recommendPlanService;
+    private final BrowsePlanService browsePlanService;
 
     @Operation(summary = "요금제 나이 테스트 결과 조회", description = "accessToken을 기반으로 해당 유저의 결과를 조회합니다.")
     @GetMapping("/result")
@@ -37,6 +41,21 @@ public class PlanAgeController {
         } catch (Exception e) {
             return ResponseEntity.status(500).body("조회 실패: " + e.getMessage());
         }
+    }
+
+    @Operation(summary = "요금제 나이 테스트 결과", description = "query param을 기준으로 결과를 return합니다.")
+    @GetMapping
+    public ResponseEntity<?> getPlanAge(@RequestParam(name="age") String age, @RequestParam(name="result") String result) {
+        try {
+            AgeResult realAge = planAgeService.getResult(age);
+            AgeResult resultAge = planAgeService.getResult(result);
+            BrowsePlan recommendPlan = browsePlanService.getBrowsePlanById(realAge.getRecommend());
+
+            return ResponseEntity.ok(Map.of("result",resultAge, "recommendPlan",recommendPlan));
+        } catch (Exception e) {
+            return ResponseEntity.status(500).body(e.getMessage());
+        }
+
     }
 
     @Operation(summary = "통신 연령 결과 저장", description = "planAge 테이블에 통신 연령 결과 저장")

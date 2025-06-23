@@ -29,6 +29,10 @@
             LIMIT #{limit} OFFSET #{offset}
     </select>
 
+    <select id="getBrowsePlanById" resultMap="BrowsePlanResultMap">
+        SELECT * FROM plan where plan_id = #{id}
+    </select>
+
     <select id="getBrowsePlanWithDipByIsOnline">
         SELECT p.plan_id
         FROM (SELECT plan_id
