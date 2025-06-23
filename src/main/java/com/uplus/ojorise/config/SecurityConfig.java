@@ -41,7 +41,8 @@ public class SecurityConfig {
                                 "/myPlan/guest",
                                 "/tongbti/info",
                                 "/question",
-                                "/browse"
+                                "/browse",
+                                "/age"
                         ).permitAll()
                         .anyRequest().authenticated()
                 )

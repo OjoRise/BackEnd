@@ -16,6 +16,10 @@ public class BrowsePlanService {
         return browsePlanMapper.getBrowsePlanByIsOnline(limit, offset, isOnline);
     }
 
+    public BrowsePlan getBrowsePlanById(int id) {
+        return browsePlanMapper.getBrowsePlanById(id);
+    }
+
     public List<Integer> getBrowseDipPlanByIsOnlineNonAuth(Long userId, int limit, int offset, boolean isOnline) {
         return browsePlanMapper.getBrowsePlanWithDipByIsOnline(userId, limit, offset, isOnline);
     }
