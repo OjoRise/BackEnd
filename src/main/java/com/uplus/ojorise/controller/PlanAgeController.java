@@ -49,7 +49,6 @@ public class PlanAgeController {
         try {
             AgeResult realAge = planAgeService.getResult(age);
             AgeResult resultAge = planAgeService.getResult(result);
-            System.out.println("REAL: "+realAge.getDescription()+realAge.getRecommend());
             BrowsePlan recommendPlan = browsePlanService.getBrowsePlanById(realAge.getRecommend());
 
             return ResponseEntity.ok(Map.of("result",resultAge, "recommendPlan",recommendPlan));
