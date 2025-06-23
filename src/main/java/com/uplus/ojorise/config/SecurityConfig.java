@@ -40,7 +40,8 @@ public class SecurityConfig {
                                 "/survey/plan",
                                 "/myPlan/guest",
                                 "/tongbti/info",
-                                "/question"
+                                "/question",
+                                "/browse"
                         ).permitAll()
                         .anyRequest().authenticated()
                 )

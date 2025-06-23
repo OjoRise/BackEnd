@@ -15,5 +15,5 @@ public class Profile {
     private String telecomProvider;
     private String planName;
     private String familyBundle;
-    private String tongResult;
+    private String tongName;
 }

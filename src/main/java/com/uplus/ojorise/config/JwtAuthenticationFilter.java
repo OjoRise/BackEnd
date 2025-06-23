@@ -42,6 +42,7 @@ public class JwtAuthenticationFilter implements Filter {
                 || path.startsWith("/ojoRise/auth/kakao")
                 || path.equals("/ojoRise/question")
                 || path.equals("/ojoRise/tongbti/info")
+                || path.equals("/ojoRise/browse")
         ) {
             chain.doFilter(request, response);
             return;
