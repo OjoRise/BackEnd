@@ -25,20 +25,20 @@ public class DipPlanController {
         Long userId = (Long) authentication.getPrincipal();
         return ResponseEntity.ok(dipPlanService.getByUserId(userId.intValue()));
     }
+    
+    @PostMapping("/{planId}")
+    @Operation(summary = "찜한 요금제 추가 및 삭제", description = "사용자가 찜한 특정 요금제를 추가 및 삭제합니다.")
+    public ResponseEntity<String> checkDipPlan(@PathVariable int planId, Authentication authentication) {
 
-    @DeleteMapping("/{planId}")
-    @Operation(summary = "찜한 요금제 삭제", description = "사용자가 찜한 특정 요금제를 삭제합니다.")
-    public ResponseEntity<String> deleteDippedPlan(@PathVariable int planId, Authentication authentication) {
-        Long userId = (Long) authentication.getPrincipal();
-        dipPlanService.delete(userId.intValue(), planId);
-        return ResponseEntity.ok("찜한 요금제가 성공적으로 삭제되었습니다.");
-    }
+            Long userId = (Long) authentication.getPrincipal();
 
-    @PutMapping("/{planId}")
-    @Operation(summary = "찜한 요금제 추가", description = "사용자가 찜한 특정 요금제를 추가합니다.")
-    public ResponseEntity<String> updateDippedPlan(@PathVariable int planId, Authentication authentication) {
-        Long userId = (Long) authentication.getPrincipal();
-        dipPlanService.insert(userId.intValue(), planId);
-        return ResponseEntity.ok("찜한 요금제가 성공적으로 추가되었습니다.");
+            List<Integer> findPlan = dipPlanService.findByUserIdOnlyPlanId(userId.intValue());
+
+            if (findPlan.contains(planId)) {
+                dipPlanService.delete(userId.intValue(), planId);
+            }
+
+            dipPlanService.insert(userId.intValue(), planId);
+            return ResponseEntity.ok("찜한 요금제가 성공적으로 추가되었습니다.");
+        }
     }
-}
