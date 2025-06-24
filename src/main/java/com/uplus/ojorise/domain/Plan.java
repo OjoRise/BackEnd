@@ -7,10 +7,6 @@ enum Eligibility {
     ALL, KID, BOY, YOUTH, OLD, SOLDIER
 }
 
-enum TelecomProvider {
-    SKT, LG, KT
-}
-
 @Getter
 @Setter
 @NoArgsConstructor
