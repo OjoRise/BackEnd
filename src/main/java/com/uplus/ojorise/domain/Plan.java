@@ -7,6 +7,10 @@ enum Eligibility {
     ALL, KID, BOY, YOUTH, OLD, SOLDIER
 }
 
+enum TelecomProvider {
+    SKT, LG, KT
+}
+
 @Getter
 @Setter
 @NoArgsConstructor
@@ -25,7 +29,7 @@ public class Plan {
     private Eligibility eligibility;
     private String mobileType;
     private String planUrl;
-    private String telecomProvider;
+    private TelecomProvider telecomProvider;
     private String description;
     private String benefit;
     @JsonProperty("isOnline")

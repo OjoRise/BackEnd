@@ -55,9 +55,5 @@ public class UserService {
         userMapper.markSurvey(userId);
     }
 
-    public String getUserName(Long userId) {
-        return userMapper.findByUserId(userId).getNickname();
-    }
-
     public boolean getUserIsSurvey(Long userId) { return userMapper.getUserIsSurvey(userId); };
 }

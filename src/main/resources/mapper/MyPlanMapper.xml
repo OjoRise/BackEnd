@@ -6,9 +6,8 @@
 <mapper namespace="com.uplus.ojorise.mapper.MyPlanMapper">
     <resultMap id="PlanResultMap" type="com.uplus.ojorise.domain.Plan">
         <result property="name" column="name" />
-        <result property="telecomProvider" column="telecom_provider"/>
         <result property="baseDataGb" column="base_data_gb" />
-        <result property="eligibility" column="eligibility" />
+        <result property="dailyDataGb" column="daily_data_gb" />
         <result property="sharingDataGb" column="sharing_data_gb" />
         <result property="monthlyFee" column="monthly_fee" />
         <result property="voiceCallPrice" column="voice_call_price" />
@@ -19,17 +18,17 @@
     </resultMap>
 
     <resultMap id="MyPlanResultMap" type="com.uplus.ojorise.domain.MyPlan">
-        <result property="planName" column="plan_name" />
-        <result property="telecomProvider" column="telecom_provider" />
+        <result property="planName" column="planName" />
+        <result property="telecomProvider" column="telecomProvider" />
     </resultMap>
 
     <select id="findMyPlanById" resultMap="MyPlanResultMap">
-        SELECT telecom_provider, plan_name from survey
+        SELECT telecom_provider as telecomProvider, plan_name as planName from survey
         WHERE id = #{id}
     </select>
 
     <select id="findMyPlanByName" resultMap="PlanResultMap">
-        SELECT telecom_provider, name, monthly_fee, base_data_gb, sharing_data_gb, voice_call_price, sms, throttle_speed_kbps, eligibility, mobile_type, benefit  from plan
+        SELECT * from plan
         WHERE name = #{planName} AND telecom_provider = #{telecomProvider}
     </select>
 </mapper>
