@@ -29,13 +29,20 @@
             LIMIT #{limit} OFFSET #{offset}
     </select>
 
+    <select id="getBrowsePlanById" resultMap="BrowsePlanResultMap">
+        SELECT * FROM plan where plan_id = #{id}
+    </select>
+
     <select id="getBrowsePlanWithDipByIsOnline">
         SELECT p.plan_id
-        FROM plan p
-                 JOIN dipplan d ON p.plan_id = d.plan_id
+        FROM (SELECT plan_id
+                FROM plan
+                WHERE telecom_provider = 'LG'
+                    AND is_online = #{isOnline}
+                ORDER BY plan_id
+                    LIMIT #{limit} OFFSET #{offset}) as p
+            JOIN dipplan as d ON d.plan_id = p.plan_id
         WHERE d.id = #{userId}
-          AND p.is_online = #{isOnline}
-          AND p.plan_id BETWEEN #{offset} AND #{offset} + #{limit}
         ORDER BY p.plan_id
     </select>
 </mapper>
