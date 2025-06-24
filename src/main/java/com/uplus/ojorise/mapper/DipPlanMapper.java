@@ -9,12 +9,6 @@ import java.util.List;
 @Mapper
 public interface DipPlanMapper {
 
-    @Select("""
-        SELECT p.*
-        FROM dipplan d
-        JOIN plan p ON d.plan_id = p.plan_id
-        WHERE d.id = #{id}
-    """)
     List<Plan> findByUserId(int id);
 
     @Select("""

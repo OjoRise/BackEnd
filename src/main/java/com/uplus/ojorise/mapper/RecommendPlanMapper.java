@@ -9,12 +9,6 @@ import java.util.List;
 @Mapper
 public interface RecommendPlanMapper {
 
-    @Select("""
-        SELECT p.*
-        FROM recommendplan r
-        JOIN plan p ON r.plan_id = p.plan_id
-        WHERE r.id = #{id}
-    """)
     List<Plan> findByUserId(int id);
 
     // 추천 요금제 저장
