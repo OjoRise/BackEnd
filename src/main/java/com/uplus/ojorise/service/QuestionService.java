@@ -13,6 +13,7 @@ public class QuestionService {
     private final QuestionMapper questionMapper;
 
     public List<Question> getAllQuestions() {
+        System.out.println("getAllQuestions: " + questionMapper.findAll());
         return questionMapper.findAll();
     }
 }
