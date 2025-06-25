@@ -9,5 +9,5 @@ import java.util.List;
 @Builder
 public class PlanAgeResponse {
     private String age;
-    private List<String> recommendedPlan;
+    private String result;
 }
