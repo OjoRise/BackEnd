@@ -8,6 +8,5 @@ import java.util.List;
 
 @Mapper
 public interface QuestionMapper {
-    @Select("SELECT * FROM question")
     List<Question> findAll();
 }
