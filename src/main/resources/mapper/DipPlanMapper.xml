@@ -29,6 +29,7 @@
         FROM dipplan r
         JOIN plan p ON r.plan_id = p.plan_id
         WHERE r.id = #{id}
+        ORDER BY r.dip_id DESC
     </select>
 
 </mapper>
