@@ -4,6 +4,7 @@ import jakarta.annotation.PostConstruct;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
+import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
@@ -21,16 +22,12 @@ public class GoogleCredentialInitializer {
             throw new IllegalStateException("GOOGLE_APPLICATION_CREDENTIALS_BASE64 is not set or empty");
         }
 
-        byte[] decoded;
-        try {
-            decoded = Base64.getDecoder().decode(credentialsBase64);
-        } catch (IllegalArgumentException e) {
-            throw new IllegalStateException("Invalid Base64 for GOOGLE_APPLICATION_CREDENTIALS_BASE64", e);
-        }
-
-        String tempPath = System.getProperty("java.io.tmpdir") + "/credentials.json";
+        byte[] decoded = Base64.getDecoder().decode(credentialsBase64);
+        String tempPath = System.getProperty("java.io.tmpdir") + File.separator + "credentials.json";
         Files.write(Paths.get(tempPath), decoded);
-        System.setProperty("GOOGLE_APPLICATION_CREDENTIALS", tempPath);
-    }
 
+        System.setProperty("GOOGLE_APPLICATION_CREDENTIALS", tempPath);
+        System.out.println("✅ GOOGLE_APPLICATION_CREDENTIALS 설정 완료: " + tempPath);
+    }
 }
+
