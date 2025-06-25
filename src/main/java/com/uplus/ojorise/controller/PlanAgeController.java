@@ -64,7 +64,10 @@ public class PlanAgeController {
         Long userId = (Long) authentication.getPrincipal();
         try {
             planAgeService.insertPlanAge(userId.intValue(),dto.getAge());
-            recommendPlanService.addAllIfNotExists(userId.intValue(),dto.getRecommendedPlan());
+            AgeResult resultAge = planAgeService.getResult(dto.getAge());
+            BrowsePlan recommendPlan = browsePlanService.getBrowsePlanById((resultAge.getRecommend()));
+            List <String> recommend = List.of(new String[]{recommendPlan.getName()});
+            recommendPlanService.addAllIfNotExists(userId.intValue(), recommend);
             return ResponseEntity.ok().body("통신 연령 저장 성공!");
         } catch (Exception e) {
             return ResponseEntity.status(500).body("통신 연령 저장 실패: " + e.getMessage());

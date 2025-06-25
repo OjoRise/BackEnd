@@ -6,11 +6,8 @@ import io.swagger.v3.oas.annotations.Operation;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 import com.uplus.ojorise.service.MyPlanService;
-import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequiredArgsConstructor
@@ -39,7 +36,7 @@ public class MyPlanController {
 
     @PostMapping("/guest")
     @Operation(summary = "게스트의 나의 요금제 조회", description = "게스트의 요금제를 불러옵니다.")
-    public ResponseEntity<Plan> getMyPlanByName(MyPlan myPlan) {
+    public ResponseEntity<Plan> getMyPlanByName(@RequestBody MyPlan myPlan) {
         Plan plan = myPlanService.findMyPlanByName(myPlan);
         if(plan == null){
             throw new RuntimeException("요금제가 존재하지 않습니다.");
