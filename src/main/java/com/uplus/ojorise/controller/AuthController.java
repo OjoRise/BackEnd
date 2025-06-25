@@ -44,12 +44,11 @@ public class AuthController {
         refreshCookie.setSecure(true);
         refreshCookie.setPath("/");
         refreshCookie.setMaxAge(60 * 60 * 24 * 14); // 14days
-        refreshCookie.setDomain("localhost");
 
         response.addCookie(refreshCookie);
 
         //accessToken
-        String redirectUrl = "http://localhost:3000/login/success?accessToken=" + loginResponse.getAccessToken();
+        String redirectUrl = "https://yople.vercel.app/login/success?accessToken=" + loginResponse.getAccessToken();
         response.sendRedirect(redirectUrl);
     }
 
