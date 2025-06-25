@@ -2,6 +2,7 @@ package com.uplus.ojorise.client;
 
 import com.uplus.ojorise.domain.Plan;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.*;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
@@ -11,9 +12,9 @@ import java.util.List;
 @Component
 @RequiredArgsConstructor
 public class PythonClient {
-
     private final RestTemplate restTemplate = new RestTemplate();
-    private final String pythonUrl = "http://localhost:8000/vectorize";
+    @Value("${NEXT_PUBLIC_PYTHON_SERVER_URL}")
+    private String pythonUrl;
 
     public void sendPlans(List<Plan> plans) {
         HttpHeaders headers = new HttpHeaders();
