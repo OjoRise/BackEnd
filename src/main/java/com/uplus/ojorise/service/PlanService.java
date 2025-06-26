@@ -5,6 +5,7 @@ import com.uplus.ojorise.mapper.StatusMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -19,6 +20,14 @@ public class PlanService {
     
     public List<Plan> findAllPlansForLG() {
         return statusMapper.findAllPlansForLG();
+    }
+
+    public List<Plan> findPlanByPlanName(String[] planIds) {
+        List<Plan> planList = new ArrayList<>();
+        for (String planId : planIds) {
+            planList.add(statusMapper.findPlanByPlanName(planId));
+        }
+        return planList;
     }
 
 }
