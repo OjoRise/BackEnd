@@ -1,7 +1,7 @@
 package com.uplus.ojorise.config;
 
 import jakarta.annotation.PostConstruct;
-import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.stereotype.Component;
 
 import java.io.File;
@@ -11,6 +11,7 @@ import java.nio.file.Paths;
 import java.util.Base64;
 
 @Component
+@ConditionalOnProperty(name = "GOOGLE_APPLICATION_CREDENTIALS_BASE64", matchIfMissing = false)
 public class GoogleCredentialInitializer {
 
     String credentialsBase64 = System.getenv("GOOGLE_APPLICATION_CREDENTIALS_BASE64");
