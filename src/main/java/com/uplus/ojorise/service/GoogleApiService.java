@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.StopWatch;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -15,8 +16,6 @@ import java.util.List;
 public class GoogleApiService {
 
     public String googleOCR(MultipartFile file) throws IOException {
-        System.out.println("📌 현재 GOOGLE_APPLICATION_CREDENTIALS: " + System.getProperty("GOOGLE_APPLICATION_CREDENTIALS"));
-
         StopWatch totalTime = new StopWatch();
         totalTime.start();
 
@@ -35,7 +34,9 @@ public class GoogleApiService {
         List<String> extractedTextList = new ArrayList<>();
 
         // ✅ 인증 설정 추가
-        GoogleCredentials credentials = GoogleCredentials.getApplicationDefault();
+        GoogleCredentials credentials = GoogleCredentials
+                .fromStream(new FileInputStream(System.getProperty("GOOGLE_APPLICATION_CREDENTIALS")))
+                .createScoped(List.of("https://www.googleapis.com/auth/cloud-platform"));
         ImageAnnotatorSettings settings = ImageAnnotatorSettings.newBuilder()
                 .setCredentialsProvider(() -> credentials)
                 .build();

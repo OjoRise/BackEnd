@@ -1,31 +1,26 @@
 package com.uplus.ojorise.config;
 
 import jakarta.annotation.PostConstruct;
-import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.stereotype.Component;
 
 import java.io.File;
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.Base64;
 
 @Component
-@ConditionalOnProperty(name = "ENABLE_GOOGLE_CREDENTIAL", havingValue = "true", matchIfMissing = false)
 public class GoogleCredentialInitializer {
-
-    String credentialsBase64 = System.getenv("GOOGLE_APPLICATION_CREDENTIALS_BASE64");
 
     @PostConstruct
     public void setupGoogleCredentials() throws IOException {
-        System.out.println("🚀 PostConstruct 진입");
-
-        if (credentialsBase64 == null || credentialsBase64.trim().isEmpty()) {
-            System.out.println("❌ credentialsBase64 비어있음");
+        String base64 = System.getenv("GOOGLE_APPLICATION_CREDENTIALS_BASE64");
+        if (base64 == null || base64.isBlank()) {
             throw new IllegalStateException("GOOGLE_APPLICATION_CREDENTIALS_BASE64 is not set or empty");
         }
 
-        byte[] decoded = Base64.getDecoder().decode(credentialsBase64);
+        byte[] decoded = Base64.getDecoder().decode(base64);
         String tempPath = System.getProperty("java.io.tmpdir") + File.separator + "credentials.json";
         Files.write(Paths.get(tempPath), decoded);
 
