@@ -21,8 +21,9 @@ public class PythonClient {
         headers.setContentType(MediaType.APPLICATION_JSON);
 
         HttpEntity<List<Plan>> request = new HttpEntity<>(plans, headers);
+        String endPoint = pythonUrl + "/vectorize";
 
-        ResponseEntity<String> response = restTemplate.postForEntity(pythonUrl, request, String.class);
+        ResponseEntity<String> response = restTemplate.postForEntity(endPoint, request, String.class);
 
         if (!response.getStatusCode().is2xxSuccessful()) {
             throw new RuntimeException("Python 서버 전송 실패: " + response.getStatusCode());
