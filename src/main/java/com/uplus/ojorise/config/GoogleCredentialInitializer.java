@@ -11,7 +11,7 @@ import java.nio.file.Paths;
 import java.util.Base64;
 
 @Component
-@ConditionalOnProperty(name = "GOOGLE_APPLICATION_CREDENTIALS_BASE64", matchIfMissing = false)
+@ConditionalOnProperty(name = "ENABLE_GOOGLE_CREDENTIAL", havingValue = "true", matchIfMissing = false)
 public class GoogleCredentialInitializer {
 
     String credentialsBase64 = System.getenv("GOOGLE_APPLICATION_CREDENTIALS_BASE64");
