@@ -13,7 +13,9 @@ import java.util.List;
 @Service
 public class GoogleApiService {
 
-    public static String googleOCR(MultipartFile file) throws IOException {
+    public String googleOCR(MultipartFile file) throws IOException {
+        System.out.println("📌 현재 GOOGLE_APPLICATION_CREDENTIALS: " + System.getProperty("GOOGLE_APPLICATION_CREDENTIALS"));
+
         StopWatch totalTime = new StopWatch();
         totalTime.start();
 

@@ -18,7 +18,10 @@ public class GoogleCredentialInitializer {
 
     @PostConstruct
     public void setupGoogleCredentials() throws IOException {
+        System.out.println("🚀 PostConstruct 진입");
+
         if (credentialsBase64 == null || credentialsBase64.trim().isEmpty()) {
+            System.out.println("❌ credentialsBase64 비어있음");
             throw new IllegalStateException("GOOGLE_APPLICATION_CREDENTIALS_BASE64 is not set or empty");
         }
 
@@ -30,4 +33,3 @@ public class GoogleCredentialInitializer {
         System.out.println("✅ GOOGLE_APPLICATION_CREDENTIALS 설정 완료: " + tempPath);
     }
 }
-
