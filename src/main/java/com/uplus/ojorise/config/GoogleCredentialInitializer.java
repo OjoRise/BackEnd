@@ -13,8 +13,7 @@ import java.util.Base64;
 @Component
 public class GoogleCredentialInitializer {
 
-    @Value("${GOOGLE_APPLICATION_CREDENTIALS_BASE64}")
-    private String credentialsBase64;
+    String credentialsBase64 = System.getenv("GOOGLE_APPLICATION_CREDENTIALS_BASE64");
 
     @PostConstruct
     public void setupGoogleCredentials() throws IOException {
