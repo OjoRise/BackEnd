@@ -24,6 +24,8 @@
     <insert id="insertTongBTIResult">
         INSERT INTO tongbtiresult (id, tong_id)
         VALUES (#{userId}, #{tongId})
+        ON DUPLICATE KEY UPDATE
+                tong_id = #{tongId}
     </insert>
 
     <select id="findTongBTIWithPlan" resultType="com.uplus.ojorise.dto.TongBTIPlanResponse">
