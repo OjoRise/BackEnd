@@ -63,7 +63,7 @@ public class PlanAgeController {
     public ResponseEntity<String> postPlanAgeResult(@RequestBody PlanAgeResponse dto, Authentication authentication) {
         Long userId = (Long) authentication.getPrincipal();
         try {
-            planAgeService.insertPlanAge(userId.intValue(),dto.getAge());
+            planAgeService.insertPlanAge(userId.intValue(),dto.getResult());
             AgeResult resultAge = planAgeService.getResult(dto.getAge());
             BrowsePlan recommendPlan = browsePlanService.getBrowsePlanById((resultAge.getRecommend()));
             List <String> recommend = List.of(new String[]{recommendPlan.getName()});

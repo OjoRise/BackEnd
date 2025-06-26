@@ -13,4 +13,6 @@ public interface StatusMapper {
     );
     
     List<Plan> findAllPlansForLG();
+
+    Plan findPlanByPlanName(String planName);
 }

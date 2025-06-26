@@ -29,6 +29,7 @@
         FROM recommendplan r
         JOIN plan p ON r.plan_id = p.plan_id
         WHERE r.id = #{id}
+        ORDER BY r.plan_id DESC
     </select>
 
 </mapper>
