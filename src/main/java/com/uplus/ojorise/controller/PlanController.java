@@ -66,5 +66,11 @@ public class PlanController {
         pythonClient.sendPlans(plans);
         return ResponseEntity.ok().build();
     }
+
+    @GetMapping("/plan/info")
+    public ResponseEntity<List<Plan>> getPlanInfo(@RequestParam(name = "id") String[] planIds) {
+        List<Plan> plans = planService.findPlanByPlanName(planIds);
+        return ResponseEntity.ok(plans);
+    }
 }
 

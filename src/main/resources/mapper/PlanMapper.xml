@@ -37,4 +37,9 @@
 	    WHERE telecom_provider = "LG"
 	</select>
 
+    <select id = "findPlanByPlanName" resultMap="PlanResultMap">
+        SELECT * FROM plan
+        WHERE name = #{planName}
+    </select>
+
 </mapper>
